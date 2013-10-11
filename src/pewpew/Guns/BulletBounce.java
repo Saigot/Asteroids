@@ -125,7 +125,7 @@ public class BulletBounce extends Bullet{
 
     @Override
     public float DoDamage() {
-        float d= (damage / ((3*recursion+1f)/2));
+        float d= (int)( (damage / ((3*recursion+1f)/2)) * dmgDealMult);
         if(d < 1){
             d = 1;
         }

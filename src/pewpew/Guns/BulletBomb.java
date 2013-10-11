@@ -105,7 +105,7 @@ public class BulletBomb extends Bullet{
 
     @Override
     public float DoDamage() {
-        return 10f;
+        return (int)(10f * dmgDealMult);
     }
 
     @Override

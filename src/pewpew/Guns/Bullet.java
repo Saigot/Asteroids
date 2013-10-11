@@ -34,6 +34,7 @@ public abstract class Bullet implements Entity{
     Polygon shape;
     int score;
     public static Audio FireSound;
+    public static double dmgDealMult = 1;
     
     Bullet(float X, float Y, float Angle){
        x = X;

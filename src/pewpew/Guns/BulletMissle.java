@@ -94,7 +94,7 @@ public class BulletMissle extends Bullet {
 
     @Override
     public float DoDamage() {
-        return 5f;
+        return (int)(5f * dmgDealMult);
     }
 
     @Override

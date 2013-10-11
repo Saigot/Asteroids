@@ -32,6 +32,7 @@ public class StandardGame extends BasicGameState {
     String message = "hello world";
     Color messageColor = new Color(Color.white);
     boolean InfiniteAmmo = true;
+    static boolean[] GunsAllowed = {true,false,true,true,true};
     
     StandardGame() {
         pow = new ArrayList<>();
@@ -111,15 +112,15 @@ public class StandardGame extends BasicGameState {
         
         
         //Gun Modes
-        if(in.isKeyPressed(Input.KEY_1)){
+        if(in.isKeyPressed(Input.KEY_1) && GunsAllowed[0]){
             p.ChangeBulletType((byte)0);
-        }else if (in.isKeyDown(Input.KEY_2)){
+        }else if (in.isKeyDown(Input.KEY_2)&& GunsAllowed[1]){
             p.ChangeBulletType((byte)1);
-        }else if(in.isKeyDown(Input.KEY_3)){
+        }else if(in.isKeyDown(Input.KEY_3)&& GunsAllowed[2]){
             p.ChangeBulletType((byte)2);
-        }else if(in.isKeyDown(Input.KEY_4)){
+        }else if(in.isKeyDown(Input.KEY_4)&& GunsAllowed[3]){
             p.ChangeBulletType((byte)3);
-        }else if(in.isKeyDown(Input.KEY_5)){
+        }else if(in.isKeyDown(Input.KEY_5)&& GunsAllowed[4]){
             p.ChangeBulletType((byte)4);
         }
         

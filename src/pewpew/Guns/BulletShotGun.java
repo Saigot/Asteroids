@@ -118,7 +118,7 @@ public class BulletShotGun extends Bullet {
 
     @Override
     public float DoDamage() {
-        return 10;
+        return (int)(10 * dmgDealMult);
     }
 
     @Override

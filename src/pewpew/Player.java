@@ -68,7 +68,10 @@ public class Player implements Entity {
     public int score = 100;
     
     public static final byte GUN_TYPES = 5;
-    byte AvailableGuns;
+    
+    
+    public static double dmgRecieveMult = 1;
+    public static double priceMult = 1;
     //</editor-fold>
 
     public Player() {
@@ -257,7 +260,7 @@ public class Player implements Entity {
         }
         shotRate = Bullet.CoolDown;
         //shotRate = 120; //TEMPORARY
-        score -= Bullet.cost;
+        score -= (Bullet.cost * priceMult);
         shotCoolDown = shotRate;
         if (Bullet.FireSound != null) {
             Bullet.FireSound.playAsSoundEffect(1.0f, 0.5f, false);
@@ -439,7 +442,7 @@ public class Player implements Entity {
     @Override
     public float DoDamage() {
         score += 10;
-        return 50f;
+        return (int)50f;
     }
     
     @Override
@@ -448,7 +451,7 @@ public class Player implements Entity {
         if (damagetick > 0) {
             return;
         }
-        health -= Damage;
+        health -= (Damage * dmgRecieveMult);
         damagetick = damageCoolDown;
         if (health < 0) {
             Death((byte) 0);

@@ -8,6 +8,7 @@ import com.sun.corba.se.impl.naming.cosnaming.InterOperableNamingImpl;
 import java.io.*;
 import org.newdawn.slick.SlickException;
 import pewpew.*;
+import pewpew.Guns.Bullet;
 
 /**
  *
@@ -89,5 +90,16 @@ public class LevelReader {
                     break;
             }
         }
+        line = br.readLine();
+        String[] Guns= line.split(",");
+        for (int i = 0; i <= enemies.length-1; i+=3){
+            StandardGame.GunsAllowed[i] = Boolean.parseBoolean(Guns[i]);
+        }
+        line = br.readLine();
+        Player.dmgRecieveMult = Double.parseDouble(line);
+        line = br.readLine();
+        Player.priceMult = Double.parseDouble(line);
+        line = br.readLine();
+        Bullet.dmgDealMult = Double.parseDouble(line);
     }
 }
