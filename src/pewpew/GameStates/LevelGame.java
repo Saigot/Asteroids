@@ -4,7 +4,11 @@
  */
 package pewpew.GameStates;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -21,7 +25,6 @@ import pewpew.Player;
  */
 public class LevelGame extends StandardGame{
     int level = 0;
-    boolean Cont = false;
     
     boolean pointLimit = false;
     boolean PointsReq = false;
@@ -44,16 +47,9 @@ public class LevelGame extends StandardGame{
         level = startLevel;
     }
     
-    public void AllowAllEnemies(){
-        EnemiesAccepted.add("Asteroid");
-    }
-    
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         super.init(gc,sbg);
-        AllowAllEnemies();
-        initLevel();
-        Cont = false;
     }
     
     @Override
@@ -69,20 +65,6 @@ public class LevelGame extends StandardGame{
         super.update(gc, sbg, delta);
     }
     
-    private void initLevel(){
-        switch(level){
-            case 0:
-                MaxEnemies = 1;
-                MaxPowerups = 0;
-                targetEnemies = 1;
-                break;
-            case 1:
-                EnemyCoolDown = 20;
-                MaxEnemies = 2;
-                MaxPowerups = 0;
-                targetEnemies = 6;
-        }
-    }
     
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
@@ -103,22 +85,24 @@ public class LevelGame extends StandardGame{
         }
     }
     
-    public void levelUp() {
+    public void levelUp() throws SlickException {
         level++;
-        Cont = true;
+        LevelReader lvl = new LevelReader();
+        try {
+            lvl.read(level, this);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LevelGame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LevelGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public boolean LevelConditionsMet(){
-        switch(level){
-            case 0:
-                return EnemiesKilled >= targetEnemies;
-            case 1:
+        if((PointsReq || (p.score < targetPts))){
+            return true;
         }
         return false;
     }
     
-    @Override
-    public boolean CanContinue(){
-        return Cont;
-    }
+    
 }

@@ -32,7 +32,7 @@ public class StandardGame extends BasicGameState {
     String message = "hello world";
     Color messageColor = new Color(Color.white);
     boolean InfiniteAmmo = true;
-    static boolean[] GunsAllowed = {true,false,true,true,true};
+    static boolean[] GunsAllowed = {true,true,true,true,true};
     
     StandardGame() {
         pow = new ArrayList<>();
@@ -125,18 +125,10 @@ public class StandardGame extends BasicGameState {
         }
         
         if (in.isKeyPressed(Input.KEY_E)) {
-            if (p.GetAmmoType() == Player.GUN_TYPES - 1) {
-                 p.ChangeBulletType((byte)0);
-            } else {
-                p.ChangeBulletType((byte)(p.GetAmmoType()+1));
-            }
+            nextWeapon();
         }
         if(in.isKeyPressed(Input.KEY_Q)){
-            if (p.GetAmmoType() == 0) {
-                 p.ChangeBulletType((byte)(Player.GUN_TYPES-1));
-            } else {
-                 p.ChangeBulletType((byte)(p.GetAmmoType()-1));
-            }
+            prevWeapon();
         }
         
         if( p.health < 0){
@@ -216,13 +208,13 @@ public class StandardGame extends BasicGameState {
         if (p.tick % PowerUpCoolDown == 0 && MaxPowerups > pow.size()) {
             if (Math.random() < 0.1) {
                 double rand = Math.random();
-                if (rand > 0.75) { //25%
+                if (rand > ShrinkUp.SpawnProbibility) {
                     pow.add(new ShrinkUp());
-                } else if (rand > 0.5) { //25%
+                } else if (rand > RandomUp.SpawnProbibility) {
                     pow.add(new RandomUp());
-                } else if (rand > 0.2) { //30%
+                } else if (rand > HealthUp.SpawnProbibility) {
                     pow.add(new HealthUp());
-                } else { //20%
+                } else if(rand > InfiniteShot.SpawnProbibility){
                     pow.add(new InfiniteShot());
                 }
 
@@ -236,6 +228,34 @@ public class StandardGame extends BasicGameState {
 
     }
 
+    public void nextWeapon() {
+        if (p.GetAmmoType() == Player.GUN_TYPES - 1) {
+            p.ChangeBulletType((byte) 0);
+            if(!GunsAllowed[0]){
+                nextWeapon();
+            }
+        } else {
+            p.ChangeBulletType((byte) (p.GetAmmoType() + 1));
+            if(!GunsAllowed[p.GetAmmoType()]){
+                nextWeapon();
+            }
+        }
+    }
+    
+    public void prevWeapon() {
+        if (p.GetAmmoType() == 0) {
+            p.ChangeBulletType((byte) (Player.GUN_TYPES - 1));
+            if(!GunsAllowed[GunsAllowed.length-1]){
+                prevWeapon();
+            }
+        } else {
+            p.ChangeBulletType((byte) (p.GetAmmoType() - 1));
+            if(!GunsAllowed[p.GetAmmoType()]){
+                prevWeapon();
+            }
+        }
+    }
+    
     @Override
     public int getID() {
         return 0;
@@ -266,7 +286,7 @@ public class StandardGame extends BasicGameState {
             g.setColor(messageColor);
             g.drawString(message,0, 50);
         }
-        if(p.health < 0){
+        if(GameOver()){
             g.drawString("DEAD", Entity.FORM_WIDTH/2 - 20, Entity.FORM_HEIGHT/2);
             g.drawString("press r to restart",Entity.FORM_WIDTH/2 -75, Entity.FORM_HEIGHT/2 + 20);
             //return;
@@ -313,8 +333,10 @@ public class StandardGame extends BasicGameState {
         
     }
     
-    public boolean CanContinue(){
-        return false;
+    public boolean GameOver(){
+        if(p.health < 0){
+            return true;
+        }else return false;
     }
 
 }

@@ -45,13 +45,6 @@ public class MainGame extends StateBasedGame {
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
         currentState.update(gc, this, delta);
-        if(currentState.CanContinue()){
-            Player tempPlayer = currentState.p;
-            int[] tempstars = currentState.StarArray;
-            currentState.init(gc, this);
-            currentState.p = tempPlayer;
-            currentState.StarArray = tempstars;
-        }
     }
 
     public void GetUniversalOptions(Input in, GameContainer gc) throws SlickException{

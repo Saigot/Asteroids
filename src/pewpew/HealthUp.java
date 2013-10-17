@@ -20,7 +20,7 @@ public class HealthUp extends PowerUps {
     //<editor-fold defaultstate="collapsed" desc="Variables">
     static final Image HEALTH_IMAGE;
     int bonus;
-    static double SpawnProbibility = 0.0;
+    public static double SpawnProbibility = 0.0;
     static{
         Image i = null;
         try {

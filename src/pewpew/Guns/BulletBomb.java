@@ -51,6 +51,17 @@ public class BulletBomb extends Bullet{
         }
         BOMB_SOUND = a;
     }
+    
+    public static final Audio BOOM;
+    static{
+        Audio a = null;
+        try {
+            a = AudioLoader.getAudio("OGG",
+                    ResourceLoader.getResourceAsStream("Res/Sounds/Boom.ogg"));
+        } catch (IOException ex) {
+        }
+        BOOM = a;
+    }
     //</editor-fold>
     
     public BulletBomb(float X, float Y, float Timer){
@@ -123,6 +134,8 @@ public class BulletBomb extends Bullet{
         } 
         if (Exploded && !Shrinking) {
             Radius+=growthrate;
+            BOOM.playAsSoundEffect(0.2f + (float)(Radius * 0.001),
+                    0.1f+ (float)(Radius * 0.005), false);
             if(Radius > MaxRadius){
                 Shrinking = true;
             }

@@ -22,7 +22,7 @@ public class RandomUp extends PowerUps{
 
     Image RandomUp;
     PowerUps ActivePowerUp;
-    static double SpawnProbibility = 0.0;
+    public static double SpawnProbibility = 0.0;
     
     public RandomUp() throws SlickException{
         timeout = (int) (Math.random() * 500) + 500;

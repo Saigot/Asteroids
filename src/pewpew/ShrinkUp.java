@@ -28,7 +28,7 @@ public class ShrinkUp extends PowerUps{
     boolean collided = false;
     Player affected;
     Audio sound;
-    static double SpawnProbibility = 0.0;
+    public static double SpawnProbibility = 0.0;
     public ShrinkUp() throws SlickException {
         this((float)(Math.random() * FORM_WIDTH),(float)(Math.random() * FORM_HEIGHT));    
     }

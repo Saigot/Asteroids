@@ -4,9 +4,13 @@
  */
 package pewpew.Guns;
 
+import java.io.IOException;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
 import pewpew.Enemy;
 import pewpew.Entity;
 import pewpew.Player;
@@ -28,7 +32,24 @@ public class BulletMissle extends Bullet {
     float xa;
     float ya;
     float acell = 2;
-
+    public static final Image MISSLE_BARREL;static{
+        Image i = null;
+        try {
+            i = new Image("Res/Ship/MissileLauncher.png");
+        } catch (SlickException ex) {
+        }
+        MISSLE_BARREL = i;
+    }
+    public static final Audio  BlastOff;
+    static{
+        Audio a = null;
+        try {
+            a = AudioLoader.getAudio("OGG",
+                        ResourceLoader.getResourceAsStream("Res/Sounds/BlastOff.ogg"));
+        } catch (IOException ex) {
+        }
+        BlastOff = a;
+    }
     public BulletMissle(float X, float Y, float Angle) {
         super(X, Y, Angle);
         TargetSys = new Primer(x, x, angle, 400);
@@ -73,6 +94,7 @@ public class BulletMissle extends Bullet {
             Entity t = TargetSys.Collides(en);
             if (t != null) {
                 stage++;
+                BlastOff.playAsSoundEffect(1.0f, 0.5f, false);
                 Target = TargetSys.Target;
                 return t;
             }
@@ -80,6 +102,7 @@ public class BulletMissle extends Bullet {
             for (Entity e : en) {
                 if (shape.intersects(e.getBounds())) {
                     stage++;
+                    BlastOff.stop();
                     return e;
                 }
             }
@@ -106,6 +129,7 @@ public class BulletMissle extends Bullet {
     public void Move(Entity e) {
         if (stage == 0) {
             TargetSys.Move(e);
+            Bullet.FireSound.playAsSoundEffect(1.0f, 0.5f, false);
         } else if (stage == 1) {
             //find angle to travel at
            // Target.x = Entity.FORM_WIDTH-10;

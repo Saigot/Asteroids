@@ -218,7 +218,7 @@ public class Player implements Entity {
                 Bullet.cost = BulletMissle.SuggestedCost;
                 Bullet.FireSound = BulletBomb.BOMB_SOUND;
                 BulletBomb.previousStickState = fixedGun;
-                Barrel = BulletBomb.BOMB_BARREL;
+                Barrel = BulletMissle.MISSLE_BARREL;
                 fixedGun = true;
                 break;
         }

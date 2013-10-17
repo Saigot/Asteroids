@@ -43,7 +43,7 @@ public class InfiniteShot extends PowerUps{
         INFINITY_SOUND = a;
     }
     Player affected;
-    static double SpawnProbibility = 0.0;
+    public static double SpawnProbibility = 0.0;
     //</editor-fold>
     
     public InfiniteShot() throws SlickException{
