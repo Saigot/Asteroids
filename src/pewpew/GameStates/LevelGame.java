@@ -26,43 +26,51 @@ import pewpew.Player;
 public class LevelGame extends StandardGame{
     int level = 0;
     
-    boolean pointLimit = false;
-    boolean PointsReq = false;
-    int targetPts;
+    //TODO: make this an enum
+    byte gameCondition = 1;
+    //1 = not over
+    //2 = Won
+    //3 = loss
     
-    boolean EnemyLimit = false;
-    boolean EnemyReq = false;
+    boolean PtsSecondary = false;
+    boolean PtsPrimary = false;
+    int PtsLimit = 50200;
+    
+    boolean EnemySecondary = false;
+    boolean EnemyPrimary = false;
     int EnemiesKilled = 0;
-    int targetEnemies;
+    int EnemyLimit;
     
-    ArrayList<String> EnemiesAccepted = new ArrayList<>();
     
-    boolean LimitedTime = false;
-    boolean TimeReq = false;
-    int timeLimit;
+    boolean TimeSecondary = false;
+    boolean TimePrimary = false;
+    int TimeLimit;
+    int tick;
     
-    int secondsElasped = 0;
     
     public LevelGame(int startLevel){
-        level = startLevel;
+        level = startLevel-1;
     }
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        levelUp();
         super.init(gc,sbg);
     }
     
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
+        tick++;
         for (int i = 0; i <= e.size() - 1; i++) {
-            if(EnemiesAccepted.contains(e.get(i).GetType())){
+            if (e.get(i).GetSuperType().equals("Enemy")) {
                 pewpew.Enemy en = (pewpew.Enemy) e.get(i);
-                if(en.isKilled()){
+                if (en.isKilled() && en.GetKillCounts()) {
                     EnemiesKilled++;
                 }
-             }
+            }
         }
         super.update(gc, sbg, delta);
+        UpdateLevelConditions();
     }
     
     
@@ -70,7 +78,7 @@ public class LevelGame extends StandardGame{
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
             throws SlickException{
         super.render(gc, sbg, g);
-        if(LevelConditionsMet()){
+        if(gameCondition == 2){
             g.drawString("Level Clear!", Entity.FORM_WIDTH/2 - 60, Entity.FORM_HEIGHT/2);
             g.drawString("press c to continue",Entity.FORM_WIDTH/2 -95, Entity.FORM_HEIGHT/2 + 20);
             //return;
@@ -80,13 +88,14 @@ public class LevelGame extends StandardGame{
     @Override
     public void GetMotion(Input in, GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         super.GetMotion(in, gc, sbg, delta);
-        if(in.isKeyPressed(Input.KEY_C) && LevelConditionsMet()){
+        if(in.isKeyPressed(Input.KEY_C) && gameCondition == 2){
             levelUp();
         }
     }
     
     public void levelUp() throws SlickException {
         level++;
+        gameCondition = 1;
         LevelReader lvl = new LevelReader();
         try {
             lvl.read(level, this);
@@ -97,12 +106,55 @@ public class LevelGame extends StandardGame{
         }
     }
     
-    public boolean LevelConditionsMet(){
-        if((PointsReq || (p.score < targetPts))){
-            return true;
-        }
-        return false;
+    public boolean TimeMet(){
+        return tick>TimeLimit;
     }
     
+    public boolean EnemiesMet(){
+      return EnemiesKilled>EnemyLimit;   
+    }
     
+    public boolean PointsMet(){
+        return p.score >PtsLimit;
+    }
+    
+    public boolean RequiredMet(){
+        return (TimeMet()||!TimePrimary)
+                && (EnemiesMet()||!EnemyPrimary)
+                && (PointsMet()||!PtsPrimary) && 
+                !(!EnemyPrimary && !EnemyPrimary && !PtsPrimary);
+    }
+    
+    public boolean AnySecondaryMet(){
+        return (TimeMet() && TimeSecondary)
+               ||(PointsMet() && PtsSecondary)
+               ||(EnemiesMet() && EnemySecondary);
+    }
+    
+    public void UpdateLevelConditions(){
+        if(TimeMet() && TimePrimary){
+            if(RequiredMet()){
+                gameCondition = 2;
+            }
+            gameCondition = 3;
+            return; 
+        }
+        else if(RequiredMet()){
+            gameCondition = 2;
+        }else if(p.health < 0){
+            gameCondition = 3;
+        }else if(AnySecondaryMet()){
+            gameCondition = 2;   
+        }else{
+            gameCondition = 1;
+        }
+    }
+    
+    @Override
+    public boolean GameOver(){
+        if(gameCondition == 3){
+            p.health = -1;
+            return true;
+        }else return false;
+    }
 }

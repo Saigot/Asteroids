@@ -40,7 +40,6 @@ public class PauseMenu extends StandardGame {
     PauseMenu(StandardGame b) {
         p = b.p;
         StarArray = b.StarArray;
-        
     }
 
     @Override

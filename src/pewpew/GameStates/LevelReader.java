@@ -17,9 +17,10 @@ import pewpew.Guns.Bullet;
 public class LevelReader {
     public void read(int level, LevelGame g) throws FileNotFoundException, IOException, SlickException {
         String line;
-        String fileName = String.format("0000", Integer.toString(level));
-        File file = new File("./" + fileName);
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        String fileName = String.format("0000", Integer.toString(level)) + ".lvl";
+        //File file = new File("Res/Lvls/" +fileName);
+        InputStream in = getClass().getResourceAsStream("/Res/Lvls/" +fileName);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String[] firstLine = br.readLine().split(",");
         int[] StartingCond = new int[firstLine.length];
         for(int i = 0; i <= firstLine.length-1; i++){
@@ -29,34 +30,31 @@ public class LevelReader {
         g.PowerUpCoolDown = StartingCond[1];
         g.EnemyCoolDown = StartingCond[2];
         g.MaxEnemies = StartingCond[3];
+        
         line =br.readLine();
-        if(line.equals("false")){
-            g.pointLimit = false;
-        }else{
-            g.pointLimit = true;
-            g.targetPts= Integer.parseInt(line.split(",")[1]);
+        String[] linelist = line.split(",");
+        g.PtsPrimary = Boolean.parseBoolean(linelist[0]);
+        g.PtsSecondary = Boolean.parseBoolean(linelist[1]);
+        if(g.PtsPrimary || g.PtsSecondary){
+            g.PtsLimit = Integer.parseInt(linelist[2]);
         }
+        
         line =br.readLine();
-        if(line.equals("false")){
-            g.LimitedTime = false;
-        }else{
-            g.LimitedTime = true;
-            g.timeLimit= Integer.parseInt(line.split(",")[1]);
+        linelist = line.split(",");
+        g.TimePrimary = Boolean.parseBoolean(linelist[0]);
+        g.TimeSecondary = Boolean.parseBoolean(linelist[1]);
+        if(g.TimePrimary || g.TimeSecondary){
+            g.TimeLimit = Integer.parseInt(linelist[2]);
         }
+        
         line =br.readLine();
-        if(line.equals("false")){
-            g.LimitedTime = false;
-        }else{
-            g.LimitedTime = true;
-            g.timeLimit= Integer.parseInt(line.split(",")[1]);
+        linelist = line.split(",");
+        g.EnemyPrimary = Boolean.parseBoolean(linelist[0]);
+        g.EnemySecondary = Boolean.parseBoolean(linelist[1]);
+        if(g.EnemyPrimary || g.EnemySecondary){
+            g.EnemyLimit = Integer.parseInt(linelist[2]);
         }
-        line =br.readLine();
-        if(line.equals("false")){
-            g.EnemyLimit = false;
-        }else{
-            g.EnemyLimit = true;
-            g.MaxEnemies= Integer.parseInt(line.split(",")[1]);
-        }
+  
         line = br.readLine();
         String[] enemies= line.split(",");
         for (int i = 0; i <= enemies.length-3; i+=3){

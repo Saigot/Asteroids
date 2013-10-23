@@ -51,7 +51,14 @@ public class MainGame extends StateBasedGame {
         //listens for things that work always even in pause
         if (in.isKeyPressed(Input.KEY_ESCAPE)) {
            if(currentState == PAUSED){
-               currentState = ARCADE;
+               switch(gameType){
+                   case 1:
+                       currentState = ARCADE;
+                       break;
+                   case 2:
+                       currentState = LEVELS;
+                       break;
+               }
            }else{
                currentState = PAUSED;
            }

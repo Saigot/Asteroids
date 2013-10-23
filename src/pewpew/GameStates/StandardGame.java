@@ -131,7 +131,7 @@ public class StandardGame extends BasicGameState {
             prevWeapon();
         }
         
-        if( p.health < 0){
+        if(GameOver()){
             if(in.isKeyPressed(Input.KEY_R)){
                 sbg.initStatesList(gc);
             }
@@ -205,7 +205,7 @@ public class StandardGame extends BasicGameState {
             }
         }
         //spawn powerups
-        if (p.tick % PowerUpCoolDown == 0 && MaxPowerups > pow.size()) {
+        if (PowerUpCoolDown != 0 && p.tick % PowerUpCoolDown == 0 && MaxPowerups > pow.size()) {
             if (Math.random() < 0.1) {
                 double rand = Math.random();
                 if (rand > ShrinkUp.SpawnProbibility) {
