@@ -75,6 +75,9 @@ public class BulletBomb extends Bullet{
         FuseRemaining = Timer;
         growthrate = Math.abs(((1-((Timer-60)/240f))*5) + 1f);
         shrinkrate = Math.abs(((1-((Timer-60)/240f))*5) + 5f);
+        shape = new Polygon();
+        shape.addPoint(x, y);
+        shape.addPoint(x+1, y+1);
     }
     
     @Override
@@ -94,7 +97,10 @@ public class BulletBomb extends Bullet{
             g.drawOval(x, y, 5f,5f);
         }else{
             g.draw(shape);
-        }
+           // g.fill(shape);
+                //gc.setMinimumLogicUpdateInterval(500);
+            //g.fill(getBounds());
+        }        
     }
 
     @Override
@@ -150,7 +156,7 @@ public class BulletBomb extends Bullet{
             float pX = (float) (Radius / 2 * Math.sin(ANGLE * i + (Math.random() * ANGLE))
                     + Math.random() * 20) + x;
             float pY = (float) (Radius / 2 * Math.cos(ANGLE * i + (Math.random() * ANGLE))
-                    + Math.random() * 20) + y;
+                    + Math.random() * Math.min(20, Radius)) + y;
             poly[i] = pX;
             poly[i + 1] = pY;
         }
@@ -170,6 +176,11 @@ public class BulletBomb extends Bullet{
         return "BulletBomb";
     }
 
+     @Override
+    public Polygon getBounds() {
+        return shape;
+    }
+    
     @Override
     public Entity[] GetAllChildren() {
         Entity[] e = {this};

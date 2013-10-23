@@ -3,8 +3,6 @@
  * and open the template in the editor.
  */
 package pewpew.GameStates;
-
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;

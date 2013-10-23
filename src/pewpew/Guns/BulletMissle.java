@@ -117,6 +117,10 @@ public class BulletMissle extends Bullet {
 
     @Override
     public float DoDamage() {
+       
+        if(stage < 2){
+            return 0;
+        }
         return (int)(5f * dmgDealMult);
     }
 
@@ -206,6 +210,24 @@ public class BulletMissle extends Bullet {
         Entity[] e = {this, TargetSys};
         return e;
     }
+    
+    @Override
+    public Polygon getBounds() {
+        if(stage == 0){
+            if(TargetSys.shape == null && TargetSys.shape.getPointCount() > 0){
+                return shape;
+            }
+            return TargetSys.shape;
+        }else if(stage == 1){
+            return shape;
+        }else if(stage == 2){
+            if(bomb == null){
+                return shape;
+            }else return bomb.getBounds();
+        }else{
+            return shape;
+        }
+    }
 }
 
 class Primer extends Bullet {
@@ -242,7 +264,6 @@ class Primer extends Bullet {
         super(X, Y, Angle);
         MaxRadius = radius;
         shape = new Polygon();
-
     }
 
     @Override
@@ -259,7 +280,8 @@ class Primer extends Bullet {
     public void render(GameContainer gc, Graphics g) {
         g.setColor(Color.red);
         if (shape != null) {
-           // g.fill(shape);
+           //Debug, draws the target wedge
+            //g.fill(getBounds());
         }
         if (Target == null) {
             //select random point inside circle that's moveable to
@@ -312,8 +334,12 @@ class Primer extends Bullet {
     @Override
     public void Move(Entity e) {
         Player p = (Player) e;
+        float deltax = x - p.GetRotatedFirePointX();
+        float deltay = y - p.GetRotatedFirePointY();
         x = p.GetRotatedFirePointX();
         y = p.GetRotatedFirePointY();
+        shape.transform(Transform.createTranslateTransform(deltax, deltay));
+        //shape.setCenterY(y);
         angle = p.GetBulletAngle();
         // growthStage =1;
         tick++;

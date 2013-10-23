@@ -4,7 +4,6 @@
  */
 package pewpew.GameStates;
 
-import com.sun.corba.se.impl.naming.cosnaming.InterOperableNamingImpl;
 import java.io.*;
 import org.newdawn.slick.SlickException;
 import pewpew.*;
@@ -94,10 +93,10 @@ public class LevelReader {
             StandardGame.GunsAllowed[i] = Boolean.parseBoolean(Guns[i]);
         }
         line = br.readLine();
-        Player.dmgRecieveMult = Double.parseDouble(line);
+        Bullet.dmgDealMult = Double.parseDouble(line);
         line = br.readLine();
         Player.priceMult = Double.parseDouble(line);
         line = br.readLine();
-        Bullet.dmgDealMult = Double.parseDouble(line);
+        Player.dmgRecieveMult = Double.parseDouble(line);
     }
 }
