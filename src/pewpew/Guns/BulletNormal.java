@@ -23,6 +23,7 @@ public class BulletNormal extends Bullet{
     //<editor-fold defaultstate="collapsed" desc="Variables">
     float Damage = 15f;
     Color c = new Color(Color.red);
+    int range;
     public static final int SuggestedCooldown = 10;
     public static final int SuggestedCost = 5;
     public static final Audio NORMAL_SOUND;
@@ -47,9 +48,9 @@ public class BulletNormal extends Bullet{
     }
     //</editor-fold>
     
-    public BulletNormal(float X, float Y, float Angle, float Additionalspeed){
+    public BulletNormal(float X, float Y, float Angle, float Additionalspeed, int R){
         super(X,Y, Angle);
-        
+        range = R;
         speed = 5f + Additionalspeed;
         xv = (float)(speed*Math.cos(Angle));
         yv = (float)(speed*Math.sin(Angle));
@@ -66,12 +67,24 @@ public class BulletNormal extends Bullet{
     public void Move(Entity e) {
         x += xv;
         y += yv;
+        range-= Math.sqrt(xv*xv + yv*yv);
+        if(range < 0){
+            cullable = true;
+        }
         shape.setCenterX(x);
         shape.setCenterY(y);
         
-        //cull if neccesary
-        if(x >= FORM_WIDTH || x <= 0 || y >= FORM_HEIGHT || y <= 0){
-            Death((byte)0);
+        //Wrap Screen
+        if (x > FORM_WIDTH) {
+            x = 0;
+        } else if (x < 0) {
+            x = FORM_WIDTH;
+        }
+
+        if (y > FORM_HEIGHT) {
+            y = 0;
+        } else if (y < 0) {
+            y = FORM_HEIGHT;
         }
     }
     

@@ -58,7 +58,7 @@ public class BulletShotGun extends Bullet {
         for (int i = 0; i <= bullets - 1; i++) {
             float speedIncrease = (float) (Math.random() * 11) - 4;
             float AngleError = (float) ((Math.random() * (MaxAngleError)) - (MaxAngleError / 2));
-            b[i] = new BulletNormal(X, Y, Angle - AngleError, speedIncrease);
+            b[i] = new BulletNormal(X, Y, Angle - AngleError, speedIncrease,Entity.FORM_WIDTH);
             //b[i].Damage += (float) (Math.random() * 10) + 10;
             b[i].c = new Color(
                     (int) (((speedIncrease + 4) / 15) * 255),

@@ -236,7 +236,7 @@ public class Player implements Entity {
         switch (ammoType) {
             case 0: //Normal
                 bu = new BulletNormal(GetRotatedFirePointX(), GetRotatedFirePointY(),
-                        BulletAngle, GetSpeed());
+                        BulletAngle, GetSpeed(), Entity.FORM_WIDTH);
                 break;
             case 1: //shotgun
                 bu = new BulletShotGun(GetRotatedFirePointX(), GetRotatedFirePointY(),

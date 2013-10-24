@@ -16,14 +16,13 @@ import pewpew.*;
  * @author michael
  */
 public class StandardGame extends BasicGameState {
-    
     Player p;
     ArrayList<Entity> e;
     ArrayList<PowerUps> pow;
-    int MaxPowerups;
-    int PowerUpCoolDown;
-    int EnemyCoolDown;
-    int MaxEnemies;
+    int MaxPowerups = 3;
+    int PowerUpCoolDown = 200;
+    int EnemyCoolDown = 200;
+    int MaxEnemies = 10;
     int StarArray[];
     boolean stars = true;
     boolean starflicker = true;
@@ -185,7 +184,8 @@ public class StandardGame extends BasicGameState {
         }
         SoundStore.get().poll(0);
         //spawn enemy
-        if ((p.tick % (EnemyCoolDown) == 0 || e.isEmpty())&& MaxEnemies > e.size()) {
+        if ((EnemyCoolDown != 0 && p.tick % (EnemyCoolDown) == 0)
+                || e.isEmpty()&& MaxEnemies > e.size()) {
             e.add(new Asteroid(-1, -1, p));
             if (EnemyCoolDown >= 100) {
                 EnemyCoolDown--;
@@ -215,6 +215,16 @@ public class StandardGame extends BasicGameState {
 
     }
 
+    
+    public void renderWinConditions(GameContainer gc, StateBasedGame sbg, Graphics g){
+        int Conditions = 1;
+        //score
+        g.setColor(Color.white);
+        NumberFormat formatter = new DecimalFormat("00000000");
+        String scr = formatter.format(p.score);
+        g.drawString(scr, 25, gc.getHeight() - (25 * Conditions));
+    }
+    
     public void nextWeapon() {
         if (p.GetAmmoType() == Player.GUN_TYPES - 1) {
             p.ChangeBulletType((byte) 0);
@@ -251,6 +261,7 @@ public class StandardGame extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
             throws SlickException {
+        renderWinConditions(gc, sbg, g);
          //stars
         if (stars) {
             for (int i = 0; i <= StarArray.length - 3; i += 3) {

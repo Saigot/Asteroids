@@ -4,20 +4,8 @@
  */
 package pewpew.GameStates;
 
-import java.awt.FontMetrics;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.*;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.openal.SoundStore;
-import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
-import pewpew.Player;
 
 /**
  *
@@ -80,14 +68,14 @@ public class MainGame extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         ARCADE = new StandardGame();
         LEVELS = new LevelGame(0);
-        ARCADE.init(gc, this);
-        LEVELS.init(gc, this);
         switch (gameType) {
             case 1:
+                ARCADE.init(gc, this);
                 PAUSED = new PauseMenu(ARCADE);
                 currentState = ARCADE;
                 break;
             case 2:
+                LEVELS.init(gc, this);
                 PAUSED = new PauseMenu(LEVELS);
                 currentState = LEVELS;
                 break;

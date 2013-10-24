@@ -85,10 +85,9 @@ public class LevelGame extends StandardGame{
         renderWinConditions(gc, sbg, g);
     } 
     
+    @Override
     public void renderWinConditions(GameContainer gc, StateBasedGame sbg, Graphics g){
         int Conditions = 1;
-        
-        
         if(EnemyPrimary || EnemySecondary){
             if(EnemiesMet()){
                 g.setColor(Color.green);
