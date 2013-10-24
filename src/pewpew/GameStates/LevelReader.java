@@ -4,6 +4,10 @@
  */
 package pewpew.GameStates;
 
+import pewpew.PowerUps.HealthUp;
+import pewpew.PowerUps.InfiniteShot;
+import pewpew.PowerUps.ShrinkUp;
+import pewpew.PowerUps.RandomUp;
 import java.io.*;
 import java.text.DecimalFormat;
 import org.newdawn.slick.SlickException;

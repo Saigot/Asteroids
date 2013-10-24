@@ -15,7 +15,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import pewpew.Asteroid;
 import pewpew.Entity;
-import pewpew.InfiniteShot;
+import pewpew.PowerUps.InfiniteShot;
 import pewpew.Player;
 
 /**

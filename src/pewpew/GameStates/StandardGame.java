@@ -3,6 +3,11 @@
  * and open the template in the editor.
  */
 package pewpew.GameStates;
+import pewpew.PowerUps.PowerUps;
+import pewpew.PowerUps.HealthUp;
+import pewpew.PowerUps.InfiniteShot;
+import pewpew.PowerUps.ShrinkUp;
+import pewpew.PowerUps.RandomUp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;

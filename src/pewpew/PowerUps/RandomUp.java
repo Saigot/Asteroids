@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pewpew;
+package pewpew.PowerUps;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
+import pewpew.Entity;
+import pewpew.Player;
 
 /**
  *

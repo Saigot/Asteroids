@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pewpew;
+package pewpew.PowerUps;
 
 import pewpew.Guns.BulletNormal;
 import java.io.IOException;
@@ -16,6 +16,8 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
+import pewpew.Entity;
+import pewpew.Player;
 
 /**
  *
