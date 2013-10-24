@@ -29,31 +29,21 @@ public class StandardGame extends BasicGameState {
     boolean starflicker = true;
     String message = "hello world";
     Color messageColor = new Color(Color.white);
-    boolean InfiniteAmmo = true;
+    boolean InfiniteAmmo = false;
     static boolean[] GunsAllowed = {true,true,true,true,true};
     
     StandardGame() {
         pow = new ArrayList<>();
-        PowerUpCoolDown = 200;
-        EnemyCoolDown = 200;
-        MaxEnemies = 10;
-        MaxPowerups = 3;
         e = new ArrayList<>();
         p = new Player();
-        e.add(new Asteroid(-1, -1, p));
         message = "old highscore here";
     }
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         pow = new ArrayList<>();
-        PowerUpCoolDown = 200;
-        EnemyCoolDown = 200;
-        MaxEnemies = 10;
-        MaxPowerups = 3;
         e = new ArrayList<>();
         p = new Player();
-        e.add(new Asteroid(-1, -1, p));
         message = "";
         if (stars) {
             StarArray = new int[(int) ((Math.random() * 50) + 1) * 3];
@@ -63,7 +53,6 @@ public class StandardGame extends BasicGameState {
                 StarArray[i + 2] = (int) (Math.random() * 10) + 1; //radius
             }
         }
-        pow.add(new HealthUp());
         
         if(InfiniteAmmo == true){
             p.score += 50000;
@@ -196,7 +185,7 @@ public class StandardGame extends BasicGameState {
         }
         SoundStore.get().poll(0);
         //spawn enemy
-        if (p.tick % (EnemyCoolDown) == 0 && MaxEnemies > e.size()) {
+        if ((p.tick % (EnemyCoolDown) == 0 || e.isEmpty())&& MaxEnemies > e.size()) {
             e.add(new Asteroid(-1, -1, p));
             if (EnemyCoolDown >= 100) {
                 EnemyCoolDown--;
@@ -318,11 +307,6 @@ public class StandardGame extends BasicGameState {
         for (int i = 0; i <= pow.size() - 1; i++) {
             pow.get(i).render(gc, g);
         }
-        //score
-        g.setColor(Color.white);
-        NumberFormat formatter = new DecimalFormat("00000000");
-        String scr = formatter.format(p.score);
-        g.drawString(scr, gc.getWidth() - 100, gc.getHeight() - 50);
 
         //set acceleration to zero to allow proper render of flame exhust
 //        p.xa = 0;

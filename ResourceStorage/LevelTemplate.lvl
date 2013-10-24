@@ -1,10 +1,10 @@
 MaxPowerups,PowerUpCoolDown,EnemyCoolDown,MaxEnemies
-[(true,(true/false),TargetPts)/false]
-[(true,(true/false),TimeLimit)/false]
-[(true,(true/false),EnemiesKilled)/false]
+PtsPrimary,PtsSecondary,[PtsLimit]
+TimePrimary,TimeSecondary,[TimeLimit]
+EnemyPrimary,EnemySecondary,[EnemyLimit]
 AllowedEnemy,EnemyCounts,EnemyProb,AllowedEnemy,EnemyCounts,EnemyProb...
 AllowedPowerup,PowerupProb,AllowedPowerup,PowerupProb,...
 AllowedGun,AllowedGun...
-PlayerDamageMult
+PlayerDamageDealMult
 PlayerPriceMult
-EnemyDamageMult
+EnemyDamageDealMultt

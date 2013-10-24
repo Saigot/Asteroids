@@ -5,6 +5,7 @@
 package pewpew.GameStates;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import org.newdawn.slick.SlickException;
 import pewpew.*;
 import pewpew.Guns.Bullet;
@@ -16,7 +17,8 @@ import pewpew.Guns.Bullet;
 public class LevelReader {
     public void read(int level, LevelGame g) throws FileNotFoundException, IOException, SlickException {
         String line;
-        String fileName = String.format("0000", Integer.toString(level)) + ".lvl";
+        DecimalFormat myFormatter = new DecimalFormat("0000");
+        String fileName = myFormatter.format(level) + ".lvl";
         //File file = new File("Res/Lvls/" +fileName);
         InputStream in = getClass().getResourceAsStream("/Res/Lvls/" +fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -89,7 +91,7 @@ public class LevelReader {
         }
         line = br.readLine();
         String[] Guns= line.split(",");
-        for (int i = 0; i <= enemies.length-1; i+=3){
+        for (int i = 0; i <= Guns.length-1; i++){
             StandardGame.GunsAllowed[i] = Boolean.parseBoolean(Guns[i]);
         }
         line = br.readLine();

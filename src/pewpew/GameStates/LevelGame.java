@@ -6,13 +6,12 @@ package pewpew.GameStates;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import pewpew.Asteroid;
 import pewpew.Entity;
@@ -42,7 +41,7 @@ public class LevelGame extends StandardGame{
     int EnemyLimit;
     
     
-    boolean TimeSecondary = false;
+    boolean TimeSecondary = true;
     boolean TimePrimary = false;
     int TimeLimit;
     int tick;
@@ -54,7 +53,7 @@ public class LevelGame extends StandardGame{
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        levelUp();
+        levelUp(gc,sbg);
         super.init(gc,sbg);
     }
     
@@ -83,19 +82,73 @@ public class LevelGame extends StandardGame{
             g.drawString("press c to continue",Entity.FORM_WIDTH/2 -95, Entity.FORM_HEIGHT/2 + 20);
             //return;
         }
+        renderWinConditions(gc, sbg, g);
     } 
+    
+    public void renderWinConditions(GameContainer gc, StateBasedGame sbg, Graphics g){
+        int Conditions = 1;
+        
+        
+        if(EnemyPrimary || EnemySecondary){
+            if(EnemiesMet()){
+                g.setColor(Color.green);
+            }else{
+                g.setColor(Color.white);
+            }
+            String Enemy = "Enemies: " + Integer.toString(EnemiesKilled)
+                    + "/" + Integer.toString(EnemyLimit);
+            g.drawString(Enemy, 25, gc.getHeight() -(25*Conditions));
+            ++Conditions;
+        }
+        if(TimePrimary || TimeSecondary){
+            if(TimeMet()){
+                g.setColor(Color.red);
+            }else{
+                g.setColor(Color.white);
+            }
+            String Time = "Time: " + Integer.toString(tick)
+                    + "/" + Integer.toString(TimeLimit);
+            g.drawString(Time, 25, gc.getHeight() -(25*Conditions));
+            ++Conditions;
+        }
+        if(PtsPrimary || PtsSecondary){
+            if(PointsMet()){
+                g.setColor(Color.green);
+            }else{
+                g.setColor(Color.white);
+            }
+            String pts = "Points: " + Integer.toString(p.score)
+                    + "/" + Integer.toString(PtsLimit);
+            g.drawString(pts, 25, gc.getHeight() -(25*Conditions));
+            ++Conditions;
+        }else{
+            //score
+            g.setColor(Color.white);
+            NumberFormat formatter = new DecimalFormat("00000000");
+            String scr = formatter.format(p.score);
+            g.drawString(scr,25, gc.getHeight() -(25*Conditions));
+        }
+        
+        
+    }
+    
     
     @Override
     public void GetMotion(Input in, GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         super.GetMotion(in, gc, sbg, delta);
         if(in.isKeyPressed(Input.KEY_C) && gameCondition == 2){
-            levelUp();
+            levelUp(gc, sbg);
         }
     }
     
-    public void levelUp() throws SlickException {
+    public void levelUp(GameContainer gc, StateBasedGame sbg) throws SlickException {
         level++;
         gameCondition = 1;
+        pow = new ArrayList<>();
+        e = new ArrayList<>();
+        gameCondition = 1;
+        EnemiesKilled = 0;
+        tick = 0;
         LevelReader lvl = new LevelReader();
         try {
             lvl.read(level, this);
@@ -111,7 +164,7 @@ public class LevelGame extends StandardGame{
     }
     
     public boolean EnemiesMet(){
-      return EnemiesKilled>EnemyLimit;   
+      return EnemiesKilled>=EnemyLimit;   
     }
     
     public boolean PointsMet(){
