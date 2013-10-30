@@ -26,6 +26,8 @@ public class BulletNormal extends Bullet{
     public static final int SuggestedCost = 5;
     public static final Audio NORMAL_SOUND;
     public static final Image NORMAL_BARREL;
+    int culltick;
+    int culltickend = 5;
     static{
         Image i;
         try {
@@ -65,6 +67,11 @@ public class BulletNormal extends Bullet{
     
     @Override
     public void Move(Entity e) {
+        if(cullable){
+            culltick++;
+            return;
+        }
+        
         x += xv;
         y += yv;
         range-= Math.sqrt(xv*xv + yv*yv);
@@ -96,16 +103,25 @@ public class BulletNormal extends Bullet{
     @Override
     public void Death(byte conditions) {
         cullable = true;
+        culltick = 0;
     }
     
     @Override
     public void render(GameContainer gc, Graphics g) {
         g.setColor(c);
-        g.fill(getBounds());
+        if(cullable){
+            g.fillOval(x-5, y+5, (float) (Damage* dmgDealMult*1.4f),
+                    (float) (Damage* dmgDealMult*1.4));
+        }else{
+            g.fill(getBounds());
+        }
     }
 
      @Override
     public Entity Collides(Entity... en) {
+         if(cullable){
+             return null;
+         }
          for (Entity e : en) {
              if(e == null || e.getBounds() == null || e == this || e.Cull()) continue;
              Polygon p = e.getBounds();
@@ -120,18 +136,23 @@ public class BulletNormal extends Bullet{
 
     @Override
     public float DoDamage() {
+        if(cullable){
+            return 0;
+        }
         return (int)(Damage * dmgDealMult);
     }
 
     @Override
     public void TakeDamage(float Damage) {
-        score += DoDamage();
-        Death((byte)0);
+        if (!cullable) {
+            score += DoDamage();
+            Death((byte) 0);
+        }
     }
 
     @Override
     public boolean Cull() {
-        return cullable;
+        return cullable && culltick > culltickend;
     }
 
     @Override
