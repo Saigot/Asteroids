@@ -18,8 +18,8 @@ import pewpew.Entity;
  * @author michael
  */
 public abstract class Bullet implements Entity{
-    float x;
-    float y;
+    public float x;
+    public float y;
     
     float xv;
     float yv;

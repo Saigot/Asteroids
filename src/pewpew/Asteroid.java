@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Transform;
 
 /**
  *
@@ -18,8 +19,8 @@ import org.newdawn.slick.geom.Polygon;
 public class Asteroid extends Enemy {
 
     Asteroid[] a;
-    int TOP_SPEED = 5;
-    int CollisionCoolDown = 50;
+    float TOP_SPEED = 5;
+    int CollisionCoolDown = 3;
     int Collsiontick = 0;
     Color C = Color.white; //or red 
     static boolean KillCounts = false;
@@ -67,9 +68,8 @@ public class Asteroid extends Enemy {
         xv = 0;
         yv = 0;
     }
-
-    //childs
-    public Asteroid(float X, float Y, float Size) {
+    
+    public Asteroid(float X, float Y, float Size, Player p, int points){
         health = (int) Size;
         size = Size;
         if (X == -1) {
@@ -78,9 +78,13 @@ public class Asteroid extends Enemy {
         if (Y == -1) {
             Y = (float) Math.random() * FORM_HEIGHT;
         }
-        // (int)(Math.random()*(10*(size/40))) + 3; FOR SMOOTH
-        int points = (int) (Math.random() * 27) + 3;
-
+        if (p != null) {
+            while (Math.sqrt(((X - x) * (X - x)) + ((Y - y) * (Y - y)))
+                    < (200 * p.GetScale()) + (size)) {
+                X = (float) Math.random() * FORM_WIDTH;
+                Y = (float) Math.random() * FORM_HEIGHT;
+            }
+        }
         float poly[] = new float[points * 2];
         float angle = (float) (2 * Math.PI / (points * 2));
 
@@ -96,54 +100,46 @@ public class Asteroid extends Enemy {
         shape = new Polygon(poly);
         x = X;
         y = Y;
+        shape.setCenterX(x);
+        shape.setCenterY(y);
         xv = 0;
         yv = 0;
     }
-
+    
+    //childs
+    public Asteroid(float X, float Y, float Size) {
+        this(X,Y,Size,new Player(),(int) (Math.random() * 27) + 3);
+        // (int)(Math.random()*(10*(size/40))) + 3; FOR SMOOTH       
+    }
     @Override
     public Entity Collides(Entity... en) {
-        if (Collsiontick > 0) {
+        if(en == null){
             return null;
-        } else {
+        }
+        if(Collsiontick > 0){
+            return null;
+        }else{
             Collsiontick = CollisionCoolDown;
         }
         for (Entity e : en) {
-            if (e == this || e.Cull()) {
+            if (e == null || e.getBounds() == null || e == this || e.Cull()) {
                 continue;
             }
             Polygon p = e.getBounds();
-            if (shape.intersects(e.getBounds())) {
+            if (shape.intersects(e.getBounds()) || shape.contains(e.getBounds())) {
                 if (e.GetType().equals("Asteroid")) {
                     Asteroid as = (Asteroid) e;
                     //TODO: momentum?
                     as.xv = as.xv * -1;
                     as.yv = as.yv * -1;
-                    return this;
+                    continue;
                 }
                 TakeDamage(e.DoDamage());
                 e.TakeDamage(DoDamage());
-                return this;
+                continue;
             }
             if (a == null) {
-                return null;
-            }
-
-            for (int i = 0; i <= a.length - 1; i++) {
-                if (e == a[i]) {
-                    continue;
-                }
-                if (a[i].shape.intersects(e.getBounds())) {
-                    if (e.GetType().equals("Asteroid")) {
-                        Asteroid as = (Asteroid) e;
-                        //TODO: momentum?
-                        as.xv = as.xv * -1;
-                        as.yv = as.yv * -1;
-                        return this;
-                    }
-                    a[i].TakeDamage(e.DoDamage());
-                    e.TakeDamage(a[i].DoDamage());
-                    return a[i];
-                }
+                continue;
             }
         }
 
@@ -164,7 +160,7 @@ public class Asteroid extends Enemy {
             g.setColor(Cn);
         }
         if (health > 0) {
-            g.draw(shape);
+            g.draw(this.getBounds());
         } else {
             if (a != null) {
                 for (int i = 0; i <= a.length - 1; i++) {
@@ -299,6 +295,7 @@ public class Asteroid extends Enemy {
         }
     }
     
+    
     @Override
     public boolean isKilled(){
         return Cull();
@@ -322,6 +319,15 @@ public class Asteroid extends Enemy {
     @Override
     public double GetSpawnProb(){
         return SpawnProbablility;
+    }
+    
+    @Override
+    public Polygon getBounds(){
+        if(health > 0){
+            return shape;
+        }else{
+            return new Polygon();
+        }
     }
 }
 

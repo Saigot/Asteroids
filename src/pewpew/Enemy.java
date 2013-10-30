@@ -62,6 +62,7 @@ abstract public class Enemy implements Entity {
     public Polygon getBounds() {
         return shape;
     }
+    
      @Override
     public String GetSuperType() {
         return "Enemy";

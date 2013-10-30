@@ -100,7 +100,7 @@ public class BulletShotGun extends Bullet {
     @Override
     public Entity Collides(Entity... en) {
         for (Bullet B : b) {
-            if (B == null || B.Cull()) {
+            if (B == null || B.getBounds() == null || B == null || B.Cull()) {
                 continue;
             }
             for (Entity e : en) {

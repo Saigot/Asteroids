@@ -464,7 +464,7 @@ public class Player implements Entity {
             return null;
         }
         for (Entity e : en) {
-            if (e == this || e.Cull()) {
+            if (e == null || e.getBounds() == null || e == this || e.Cull()) {
                 continue;
             }
             if (shape.intersects(e.getBounds())) {
@@ -472,14 +472,14 @@ public class Player implements Entity {
                 e.TakeDamage(DoDamage());
                 return this;
             }
-            for (int i = 0; i <= b.size() - 1; i++) {
-
-                if (b.get(i).Collides(e) != null) {
-                    b.get(i).TakeDamage(e.DoDamage());
-                    e.TakeDamage(b.get(i).DoDamage());
-                    return b.get(i);
-                }
-            }
+//            for (int i = 0; i <= b.size() - 1; i++) {
+//
+//                if (b.get(i).Collides(e) != null) {
+//                    b.get(i).TakeDamage(e.DoDamage());
+//                    e.TakeDamage(b.get(i).DoDamage());
+//                    return b.get(i);
+//                }
+//            }
         }
         return null;
     }

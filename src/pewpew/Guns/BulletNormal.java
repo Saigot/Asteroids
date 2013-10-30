@@ -5,8 +5,6 @@
 package pewpew.Guns;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
@@ -61,6 +59,8 @@ public class BulletNormal extends Bullet{
             X,Y+2
         });
         shape = (Polygon)shape.transform(Transform.createRotateTransform(Angle));
+        shape.setCenterX(x);
+        shape.setCenterY(y);
     }
     
     @Override
@@ -101,18 +101,18 @@ public class BulletNormal extends Bullet{
     @Override
     public void render(GameContainer gc, Graphics g) {
         g.setColor(c);
-        g.fill(shape);
+        g.fill(getBounds());
     }
 
      @Override
     public Entity Collides(Entity... en) {
          for (Entity e : en) {
-             if(e == this || e.Cull()) continue;
+             if(e == null || e.getBounds() == null || e == this || e.Cull()) continue;
              Polygon p = e.getBounds();
-             if (shape.intersects(e.getBounds())) {
+             if (shape.intersects(e.getBounds()) || shape.contains(e.getBounds())) {
                  TakeDamage(e.DoDamage());
                  e.TakeDamage(DoDamage());
-                 return this;
+                 continue;
              }
          }
         return null;

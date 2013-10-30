@@ -61,7 +61,8 @@ public class StandardGame extends BasicGameState {
         if(InfiniteAmmo == true){
             p.score += 50000;
         }
-
+        //e.add(new Bosteroid(p));
+        e.add(new Asteroid(-1, -1, p));
     }
     
     public void GetMotion(Input in, GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -161,7 +162,6 @@ public class StandardGame extends BasicGameState {
         for (int i = 0; i <= pow.size() - 1; i++) {
             pow.get(i).Move(p);
         }
-        
          //collision check enemies
         for (int i = 0; i <= e.size(); i++) {
             for (int j = 0; j <= e.size(); j++) {
@@ -180,7 +180,20 @@ public class StandardGame extends BasicGameState {
                 if (en == en2) {
                     continue;
                 }
-                Entity hit = en.Collides(en2.GetAllChildren());
+                
+                if(en == null || en2 == null || 
+                        en.GetAllChildren() == null || en2.GetAllChildren() == null){
+                    continue;
+                }
+                for(Entity ent : en.GetAllChildren()){
+                    for(Entity ent2 : en2.GetAllChildren()){
+                        if(ent2 == null || ent == null){
+                            continue;
+                        }
+                        ent2.Collides(ent);
+                        ent.Collides(ent2);
+                    }
+                }
             }
         }
         //collsion check powerups
