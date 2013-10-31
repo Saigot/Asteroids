@@ -4,7 +4,7 @@
  */
 package pewpew;
 
-import pewpew.GameStates.StartScreen;
+import pewpew.gamestates.StartScreen;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 

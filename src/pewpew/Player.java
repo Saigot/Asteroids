@@ -4,12 +4,12 @@
  */
 package pewpew;
 
-import pewpew.Guns.BulletShotGun;
-import pewpew.Guns.BulletBomb;
-import pewpew.Guns.BulletMissle;
-import pewpew.Guns.Bullet;
-import pewpew.Guns.BulletNormal;
-import pewpew.Guns.BulletBounce;
+import pewpew.guns.BulletShotGun;
+import pewpew.guns.BulletBomb;
+import pewpew.guns.BulletMissle;
+import pewpew.guns.Bullet;
+import pewpew.guns.BulletNormal;
+import pewpew.guns.BulletBounce;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
