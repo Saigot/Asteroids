@@ -89,29 +89,31 @@ public class BulletMissle extends Bullet {
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         if (stage == 0) {
-            Entity t = TargetSys.Collides(en);
+            TargetSys.Collides(en);
+            Entity t = TargetSys.Target;
             if (t != null) {
                 stage++;
                 BlastOff.playAsSoundEffect(1.0f, 0.5f, false);
                 Target = TargetSys.Target;
-                return t;
+                return;
             }
         } else if (stage == 1) {
             for (Entity e : en) {
                 if (shape.intersects(e.getBounds())) {
                     stage++;
                     BlastOff.stop();
-                    return e;
+                    return;
                 }
             }
         } else if (stage == 2) {
             if(bomb != null){
-                return bomb.Collides(en);
+                bomb.Collides(en);
+                return;
             }
         }
-        return null;
+        return;
 
     }
 
@@ -300,9 +302,9 @@ class Primer extends Bullet {
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         if (Target != null) {
-            return null;
+            return;
         }
         for (Entity e : en) {
             if (e == this || e.Cull()) {
@@ -312,13 +314,13 @@ class Primer extends Bullet {
                 if (shape.intersects(e.getBounds())) {
                     if (e.GetSuperType().equals("Enemy")) {
                         Target = (Enemy) e;
-                        return e;
+                        return;
                     }
 
                 }
             }
         }
-        return null;
+        return;
     }
 
     @Override

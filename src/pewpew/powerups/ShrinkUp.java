@@ -81,9 +81,9 @@ public class ShrinkUp extends PowerUps{
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         if(collided){
-            return null;
+            return;
         }
         for (Entity e : en) {
             if (shape.intersects(e.getBounds())) {
@@ -97,10 +97,10 @@ public class ShrinkUp extends PowerUps{
                     EffectTimeleft = EffectTime;
                     sound.playAsSoundEffect(1.0f, 0.5f, false);
                 }
-                return this;
+                return;
             }
         }
-        return null;
+        return;
     }
 
     @Override

@@ -101,12 +101,12 @@ public class BulletBounce extends Bullet{
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         for (BulletBounce e : b) {
             e.Collides(en);
         }
         if(dead){
-            return null;
+            return;
         }
         for (Entity e : en) {
             if (e == this || e.Cull()) {
@@ -116,11 +116,11 @@ public class BulletBounce extends Bullet{
             if (shape.intersects(e.getBounds())) {
                 TakeDamage(e.DoDamage());
                 e.TakeDamage(DoDamage());
-                return this;
+                return;
             }
         }
        
-        return null;
+        return;
     }
 
     @Override

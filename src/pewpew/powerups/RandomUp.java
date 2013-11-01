@@ -53,7 +53,7 @@ public class RandomUp extends PowerUps{
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
          for (Entity e : en) {
             if (shape.intersects(e.getBounds()) && !Collided) {
                 if (e.GetType().equals("Player")) {
@@ -63,10 +63,10 @@ public class RandomUp extends PowerUps{
                     ActivePowerUp.Collides(p);
                     Collided = true;
                 }
-                return this;
+                return;
             }
         }
-        return null;
+        return;
     }
 
     public PowerUps GetCurrentPowerUp() {

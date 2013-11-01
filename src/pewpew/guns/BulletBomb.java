@@ -104,9 +104,9 @@ public class BulletBomb extends Bullet{
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         if(!Exploded){
-            return null;
+            return;
         }
         for (Entity e : en) {
              if(e == this || e.Cull()) continue;
@@ -114,10 +114,10 @@ public class BulletBomb extends Bullet{
              if (shape.intersects(e.getBounds())) {
                  TakeDamage(e.DoDamage());
                  e.TakeDamage(DoDamage());
-                 return e;
+                 return;
              }
          }
-       return null;
+       return;
     }
 
     @Override

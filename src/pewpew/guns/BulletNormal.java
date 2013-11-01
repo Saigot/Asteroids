@@ -117,9 +117,9 @@ public class BulletNormal extends Bullet{
     }
 
      @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
          if(cullable){
-             return null;
+             return;
          }
          for (Entity e : en) {
              if(e == null || e.getBounds() == null || e == this || e.Cull()) continue;
@@ -130,7 +130,7 @@ public class BulletNormal extends Bullet{
                  continue;
              }
          }
-        return null;
+        return;
     }
 
     @Override

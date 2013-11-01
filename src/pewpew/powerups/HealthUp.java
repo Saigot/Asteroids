@@ -64,7 +64,7 @@ public class HealthUp extends PowerUps {
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         for (Entity e : en) {
             if (shape.intersects(e.getBounds())) {
                 if (e.GetType().equals("Player")) {
@@ -76,10 +76,10 @@ public class HealthUp extends PowerUps {
                     }
                     Death((byte) 0);
                 }
-                return this;
+                return;
             }
         }
-        return null;
+        return;
     }
 
     @Override

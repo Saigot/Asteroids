@@ -24,7 +24,7 @@ public interface Entity{
      
      //checks whether parent or it's children has collided with e, if so returns the child or parent
      //that collided else null
-     public abstract Entity Collides(Entity... en);
+     public abstract void Collides(Entity... en);
      public abstract Polygon getBounds();
      public float DoDamage();
      public void TakeDamage(float Damage);

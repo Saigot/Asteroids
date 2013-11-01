@@ -82,7 +82,7 @@ public class InfiniteShot extends PowerUps{
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         for (Entity e : en) {
             if (shape.intersects(e.getBounds()) && !Collided) {
                 if (e.GetType().equals("Player")) {
@@ -92,10 +92,10 @@ public class InfiniteShot extends PowerUps{
                     EffectTimeleft = EffectTime;
                     InfiniteShot.INFINITY_SOUND.playAsSoundEffect(1.0f, 1.0f, false);
                 }
-                return this;
+                return;
             }
         }
-        return null;
+        return;
     }
 
     @Override

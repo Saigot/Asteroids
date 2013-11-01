@@ -112,12 +112,12 @@ public class Asteroid extends Enemy {
         // (int)(Math.random()*(10*(size/40))) + 3; FOR SMOOTH       
     }
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         if(en == null){
-            return null;
+            return;
         }
         if(Collsiontick > 0){
-            return null;
+            return;
         }else{
             Collsiontick = CollisionCoolDown;
         }
@@ -143,7 +143,7 @@ public class Asteroid extends Enemy {
             }
         }
 
-        return null;
+        return;
 
     }
 

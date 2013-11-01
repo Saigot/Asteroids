@@ -91,10 +91,10 @@ public class Bosteroid extends Asteroid{
     }
     
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
       
         if(en == null || getBounds() == null){
-            return null;
+            return;
         }
         
         for (Entity e : en) {
@@ -117,7 +117,7 @@ public class Bosteroid extends Asteroid{
                     //TODO: momentum?
                     as.xv = as.xv * -1;
                     as.yv = as.yv * -1;
-                    return this;
+                    return;
                 }else if(e.GetSuperType().equals("Bullet")){
                     Bullet b = (Bullet) e;
                     Asteroid as = new Asteroid(b.x, b.y, b.DoDamage()*1.4f,null, 
@@ -129,11 +129,11 @@ public class Bosteroid extends Asteroid{
                 }
                 TakeDamage(e.DoDamage());
                 e.TakeDamage(DoDamage());
-                return this;
+                return;
             }
         }
 
-        return null;
+        return;
 
     }
         

@@ -98,7 +98,7 @@ public class BulletShotGun extends Bullet {
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         for (Bullet B : b) {
             if (B == null || B.getBounds() == null || B == null || B.Cull()) {
                 continue;
@@ -109,11 +109,11 @@ public class BulletShotGun extends Bullet {
                 if (B.shape.intersects(e.getBounds())) {
                     B.TakeDamage(e.DoDamage());
                     e.TakeDamage(B.DoDamage());
-                    return this;
+                    return;
                 }
             }
         }
-        return null;
+        return;
     }
 
     @Override

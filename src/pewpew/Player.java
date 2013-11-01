@@ -459,9 +459,9 @@ public class Player implements Entity {
     }
 
     @Override
-    public Entity Collides(Entity... en) {
+    public void Collides(Entity... en) {
         if (health < 0) {
-            return null;
+            return;
         }
         for (Entity e : en) {
             if (e == null || e.getBounds() == null || e == this || e.Cull()) {
@@ -470,7 +470,7 @@ public class Player implements Entity {
             if (shape.intersects(e.getBounds())) {
                 TakeDamage(e.DoDamage());
                 e.TakeDamage(DoDamage());
-                return this;
+                return;
             }
 //            for (int i = 0; i <= b.size() - 1; i++) {
 //
@@ -481,7 +481,7 @@ public class Player implements Entity {
 //                }
 //            }
         }
-        return null;
+        return;
     }
 
     @Override
