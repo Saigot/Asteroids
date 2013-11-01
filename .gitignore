@@ -1,8 +1,11 @@
 /dist/
 manifests.mf
+*.class
 sore
 nbproject
 build
 build.xml
 ResourceStorage
 natives
+.classpath
+.project
