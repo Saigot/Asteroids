@@ -319,7 +319,7 @@ public class Player implements Entity {
 		}
 		for (int i = 0; i <= b.size() - 1; i++) {
 			if (b.get(i).cull()) {
-				score += b.get(i).GetScore();
+				score += b.get(i).getScore();
 				b.remove(i);
 			}
 		}

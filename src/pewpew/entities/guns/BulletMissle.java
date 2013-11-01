@@ -70,7 +70,7 @@ public class BulletMissle extends Bullet {
 	}
 
 	@Override
-	public void Special() {
+	public void special() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -81,7 +81,7 @@ public class BulletMissle extends Bullet {
 	}
 
 	@Override
-	public int GetScore() {
+	public int getScore() {
 		int s = 0;
 		if (bomb != null) {
 			s += bomb.score;
@@ -285,7 +285,7 @@ class Primer extends Bullet {
 	}
 
 	@Override
-	public void Special() {
+	public void special() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -427,7 +427,7 @@ class Primer extends Bullet {
 
 	@Override
 	public String getType() {
-		return "Primer";
+		return type;
 	}
 
 	@Override

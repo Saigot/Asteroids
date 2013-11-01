@@ -29,6 +29,7 @@ public abstract class Bullet implements Entity {
 	public int score;
 	public static Audio FireSound;
 	public static double dmgDealMult = 1;
+	public String type;
 
 	public Bullet(float X, float Y, float Angle) {
 		x = X;
@@ -36,11 +37,11 @@ public abstract class Bullet implements Entity {
 		angle = Angle;
 	}
 
-	public int GetScore() {
+	public int getScore() {
 		return score;
 	}
 
-	public abstract void Special();
+	public abstract void special();
 
 	@Override
 	public Polygon getBounds() {

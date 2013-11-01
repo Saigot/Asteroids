@@ -102,7 +102,7 @@ public class BulletNormal extends Bullet {
 	}
 
 	@Override
-	public void Special() {
+	public void special() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 

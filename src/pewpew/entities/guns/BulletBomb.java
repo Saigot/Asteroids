@@ -25,19 +25,20 @@ import pewpew.entities.Entity;
  */
 public class BulletBomb extends Bullet {
 	// <editor-fold defaultstate="collapsed" desc="Variables">
-	float Radius;
-	float INITIAL_SIZE = 10f;
-	float FuseRemaining;
-	boolean Exploded = false;
-	boolean Shrinking = false;
-	float MaxRadius;
+	public float Radius;
+	public float INITIAL_SIZE = 10f;
+	public float FuseRemaining;
+	public boolean Exploded = false;
+	public boolean Shrinking = false;
+	public float MaxRadius;
 	public static boolean previousStickState;
 	public static int SuggestedCost = 150;
 	public static int SuggestedCooldown = 120;
-	float growthrate = 1f;
-	float shrinkrate = 5f;
-	Color c = Color.cyan;
+	public float growthrate = 1f;
+	public float shrinkrate = 5f;
+	public Color c = Color.cyan;
 	public static final Image BOMB_BARREL;
+	public String type = "BulletBomb";
 	static {
 		Image i = null;
 		try {
@@ -88,7 +89,7 @@ public class BulletBomb extends Bullet {
 	}
 
 	@Override
-	public void Special() {
+	public void special() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -184,7 +185,7 @@ public class BulletBomb extends Bullet {
 
 	@Override
 	public String getType() {
-		return "BulletBomb";
+		return type;
 	}
 
 	@Override

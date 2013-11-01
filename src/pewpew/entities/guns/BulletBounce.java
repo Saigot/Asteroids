@@ -84,7 +84,7 @@ public class BulletBounce extends Bullet {
 	}
 
 	@Override
-	public void Special() {
+	public void special() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
