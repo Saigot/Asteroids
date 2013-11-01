@@ -30,6 +30,8 @@ public class BulletShotGun extends Bullet {
 	public static int SuggestedCooldown = 40;
 	public static final int SuggestedCost = 50;
 
+	public String type = "ShotGun";
+	
 	public static final Audio SHOTGUN_SOUND;
 	public static final Image SHOTGUN_BARREL;
 	static {
@@ -164,11 +166,6 @@ public class BulletShotGun extends Bullet {
 		}
 		cullable = c;
 		return c;
-	}
-
-	@Override
-	public String getType() {
-		return "ShotGun";
 	}
 
 	@Override

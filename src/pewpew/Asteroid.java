@@ -22,13 +22,13 @@ import pewpew.entities.Player;
  */
 public class Asteroid extends Enemy {
 
-    Asteroid[] a;
-    float TOP_SPEED = 5;
-    int CollisionCoolDown = 3;
-    int Collsiontick = 0;
-    Color C = Color.white; // or red
-    static boolean KillCounts = false;
-    static double SpawnProbablility = 0;
+    public Asteroid[] a;
+    public float TOP_SPEED = 5;
+    public int CollisionCoolDown = 3;
+    public int Collsiontick = 0;
+    public Color C = Color.white; // or red
+    public static boolean KillCounts = false;
+    public static double SpawnProbablility = 0;
 
     // parents
     public Asteroid(float X, float Y, Player p) {

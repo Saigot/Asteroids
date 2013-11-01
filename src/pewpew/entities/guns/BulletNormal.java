@@ -35,6 +35,7 @@ public class BulletNormal extends Bullet {
 	public static final Image NORMAL_BARREL;
 	public int culltick = 0;
 	public int culltickend = 5;
+	public String type = "Normal";
 	static {
 		Image i;
 		try {
@@ -160,11 +161,6 @@ public class BulletNormal extends Bullet {
 	@Override
 	public boolean cull() {
 		return cullable && culltick > culltickend;
-	}
-
-	@Override
-	public String getType() {
-		return "Normal";
 	}
 
 	@Override

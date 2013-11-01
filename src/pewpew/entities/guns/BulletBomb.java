@@ -184,11 +184,6 @@ public class BulletBomb extends Bullet {
 	}
 
 	@Override
-	public String getType() {
-		return type;
-	}
-
-	@Override
 	public Polygon getBounds() {
 		return shape;
 	}

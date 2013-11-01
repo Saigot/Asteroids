@@ -33,6 +33,7 @@ public class BulletBounce extends Bullet {
 	int recursion;
 	int Damageless;
 	float damage = 30f;
+	public String type = "Bounce";
 	public static final int SuggestedCooldown = 15;
 	public static final int SuggestedCost = 30;
 	boolean dead = false;
@@ -192,12 +193,7 @@ public class BulletBounce extends Bullet {
 		}
 		return CullMe;
 	}
-
-	@Override
-	public String getType() {
-		return "Bonunce";
-	}
-
+	
 	@Override
 	public Entity[] getAllChildren() {
 		ArrayList<Entity> t = new ArrayList<>();

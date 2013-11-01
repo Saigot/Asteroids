@@ -36,6 +36,7 @@ public class BulletMissle extends Bullet {
 	Enemy Target = null;
 	public static int SuggestedCost = 100;
 	public static int SuggestedCooldown = 120;
+	public String type = "Missle";
 	float xa;
 	float ya;
 	float acell = 2;
@@ -423,11 +424,6 @@ class Primer extends Bullet {
 	@Override
 	public boolean cull() {
 		return (done && Target == null) || cullable;
-	}
-
-	@Override
-	public String getType() {
-		return type;
 	}
 
 	@Override

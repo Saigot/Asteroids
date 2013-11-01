@@ -47,6 +47,10 @@ public abstract class Bullet implements Entity {
 	public Polygon getBounds() {
 		return shape;
 	}
+	
+	public String getType() {
+	    return type;
+	}
 
 	@Override
 	public String getSuperType() {
