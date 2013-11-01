@@ -69,11 +69,18 @@ public class BulletMissle extends Bullet {
     @Override
     public void Death(byte conditions) {
         cullable = true;
-        if(bomb != null){
-         score += bomb.score;   
-        }
-        score += TargetSys.score;
+        
                 
+    }
+    
+    @Override
+    public int GetScore(){
+        int s = 0;
+        if(bomb != null){
+         s += bomb.score;   
+        }
+        s += TargetSys.score+score;
+        return s;
     }
 
     @Override
