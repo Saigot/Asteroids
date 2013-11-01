@@ -86,50 +86,50 @@ public class Player implements Entity {
 			return;
 		}
 
-		SetScale(1);
-		ChangeBulletType(ammoType);
+		setScale(1);
+		changeBulletType(ammoType);
 		x -= Ship.getWidth() / 2;
 		y -= Ship.getHeight() / 2;
 
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="Getters & Setters">
-	public float GetBulletAngle() {
+	public float getBulletAngle() {
 		return BulletAngle;
 	}
 
-	public void SetFixedGun(boolean FixedGun) {
+	public void setFixedGun(boolean FixedGun) {
 		if (ammoType != 3) {
 			fixedGun = FixedGun;
 		}
 	}
 
-	public boolean GetFixedGun() {
+	public boolean getFixedGun() {
 		return fixedGun;
 	}
 
-	public void ToggleFixedGun() {
+	public void toggleFixedGun() {
 		if (ammoType != 3) {
 			fixedGun = !fixedGun;
 		}
 	}
 
-	public float GetRotation() {
+	public float getRotation() {
 		return rotation;
 	} // IN DEGREES
 
-	public float GetSpeed() {
+	public float getSpeed() {
 		return (float) Math.sqrt(xv * xv + yv * yv);
 	}
 
-	public void SetScale(float i) {
+	public void setScale(float i) {
 		scale = i;
 		float shapeScale = 1 / (shape.getWidth() / (50 * i));
 		shape = (Polygon) shape.transform(Transform.createScaleTransform(
 				shapeScale, shapeScale));
 	}
 
-	public float GetScale() {
+	public float getScale() {
 		return scale;
 	}
 
@@ -138,39 +138,39 @@ public class Player implements Entity {
 		return shape;
 	}
 
-	public float GetRotatedFirePointX() {
-		float yi = GetFirePointY();
+	public float getRotatedFirePointX() {
+		float yi = getFirePointY();
 
 		float dy = y - yi;
 
-		float theta = (float) Math.toRadians(GetRotation() - 90);
+		float theta = (float) Math.toRadians(getRotation() - 90);
 
 		return (float) -(dy * Math.cos(theta)) + (x + (WIDTH * scale / 2));
 	}
 
-	public float GetRotatedFirePointY() {
-		float yi = GetFirePointY();
+	public float getRotatedFirePointY() {
+		float yi = getFirePointY();
 
 		float dy = y - yi;
 
-		float theta = (float) Math.toRadians(GetRotation() - 90);
+		float theta = (float) Math.toRadians(getRotation() - 90);
 
 		return (float) -(dy * Math.sin(theta)) + (y + (HEIGHT * scale / 2));
 	}
 
-	private float GetFirePointX() {
+	private float getFirePointX() {
 		float a;
 		a = x + (WIDTH * scale / 2);
 		return a;
 	}
 
-	private float GetFirePointY() {
+	private float getFirePointY() {
 		float a;
 		a = y + (HEIGHT * scale / 2) - (15 * scale);
 		return a;
 	}
 
-	public byte GetAmmoType() {
+	public byte getAmmoType() {
 		return ammoType;
 	}
 
@@ -189,7 +189,7 @@ public class Player implements Entity {
 		BulletAngle += rad;
 	}
 
-	public void ChangeBulletType(byte type) {
+	public void changeBulletType(byte type) {
 		if (ammoType == 3) {
 			fixedGun = BulletBomb.previousStickState;
 		}
@@ -243,25 +243,25 @@ public class Player implements Entity {
 		}
 		switch (ammoType) {
 		case 0: // Normal
-			bu = new BulletNormal(GetRotatedFirePointX(),
-					GetRotatedFirePointY(), BulletAngle, GetSpeed(),
+			bu = new BulletNormal(getRotatedFirePointX(),
+					getRotatedFirePointY(), BulletAngle, getSpeed(),
 					Entity.FORM_WIDTH);
 			break;
 		case 1: // shotgun
-			bu = new BulletShotGun(GetRotatedFirePointX(),
-					GetRotatedFirePointY(), BulletAngle);
+			bu = new BulletShotGun(getRotatedFirePointX(),
+					getRotatedFirePointY(), BulletAngle);
 			break;
 		case 2: // bouncer
-			bu = new BulletBounce(GetRotatedFirePointX(),
-					GetRotatedFirePointY(), BulletAngle, GetSpeed(), 0);
+			bu = new BulletBounce(getRotatedFirePointX(),
+					getRotatedFirePointY(), BulletAngle, getSpeed(), 0);
 			break;
 		case 3: // bomb
-			bu = new BulletBomb(GetRotatedFirePointX(), GetRotatedFirePointY(),
-					(float) (BulletAngle - Math.toRadians(GetRotation())));
+			bu = new BulletBomb(getRotatedFirePointX(), getRotatedFirePointY(),
+					(float) (BulletAngle - Math.toRadians(getRotation())));
 			break;
 		case 4: // missle
-			bu = new BulletMissle(GetRotatedFirePointX(),
-					GetRotatedFirePointY(), BulletAngle);
+			bu = new BulletMissle(getRotatedFirePointX(),
+					getRotatedFirePointY(), BulletAngle);
 			break;
 		}
 
@@ -427,8 +427,8 @@ public class Player implements Entity {
 		if (Barrel != null) {
 			Barrel.rotate((float) Math.toDegrees(BulletAngle) + 90
 					- Barrel.getRotation());
-			Barrel.draw(GetRotatedFirePointX()
-					- (Barrel.getWidth() * scale / 2), GetRotatedFirePointY()
+			Barrel.draw(getRotatedFirePointX()
+					- (Barrel.getWidth() * scale / 2), getRotatedFirePointY()
 					- (Barrel.getHeight() * scale / 2), scale);
 		}
 		// exhuast flame if a != 0

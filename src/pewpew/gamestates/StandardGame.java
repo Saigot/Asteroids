@@ -79,12 +79,12 @@ public class StandardGame extends BasicGameState {
 	public void GetMotion(Input in, GameContainer gc, StateBasedGame sbg,
 			int delta) throws SlickException {
 		if (in.isKeyDown(Input.KEY_UP)) {
-			float rotation = (float) Math.toRadians(p.GetRotation());
+			float rotation = (float) Math.toRadians(p.getRotation());
 			p.Forward((float) (0.2f * Math.sin(rotation)),
 					(float) (-0.2f * Math.cos(rotation)), delta);
 		}
 		if (in.isKeyDown(Input.KEY_DOWN)) { // decelerate
-			float rotation = (float) Math.toRadians(p.GetRotation());
+			float rotation = (float) Math.toRadians(p.getRotation());
 			p.Reverse((float) (0.2f * Math.sin(rotation)),
 					(float) (-0.2f * Math.cos(rotation)), delta);
 			// p.Forward(-p.xv / 35, -p.yv / 35, delta);
@@ -112,20 +112,20 @@ public class StandardGame extends BasicGameState {
 		if (in.isKeyPressed(Input.KEY_S)) {
 			// p.BulletAngle = (float)(-Math.PI/2) +
 			// (float)Math.toRadians(p.Ship.getRotation());
-			p.ToggleFixedGun();
+			p.toggleFixedGun();
 		}
 
 		// Gun Modes
 		if (in.isKeyPressed(Input.KEY_1) && GunsAllowed[0]) {
-			p.ChangeBulletType((byte) 0);
+			p.changeBulletType((byte) 0);
 		} else if (in.isKeyDown(Input.KEY_2) && GunsAllowed[1]) {
-			p.ChangeBulletType((byte) 1);
+			p.changeBulletType((byte) 1);
 		} else if (in.isKeyDown(Input.KEY_3) && GunsAllowed[2]) {
-			p.ChangeBulletType((byte) 2);
+			p.changeBulletType((byte) 2);
 		} else if (in.isKeyDown(Input.KEY_4) && GunsAllowed[3]) {
-			p.ChangeBulletType((byte) 3);
+			p.changeBulletType((byte) 3);
 		} else if (in.isKeyDown(Input.KEY_5) && GunsAllowed[4]) {
-			p.ChangeBulletType((byte) 4);
+			p.changeBulletType((byte) 4);
 		}
 
 		if (in.isKeyPressed(Input.KEY_E)) {
@@ -256,28 +256,28 @@ public class StandardGame extends BasicGameState {
 	}
 
 	public void nextWeapon() {
-		if (p.GetAmmoType() == Player.GUN_TYPES - 1) {
-			p.ChangeBulletType((byte) 0);
+		if (p.getAmmoType() == Player.GUN_TYPES - 1) {
+			p.changeBulletType((byte) 0);
 			if (!GunsAllowed[0]) {
 				nextWeapon();
 			}
 		} else {
-			p.ChangeBulletType((byte) (p.GetAmmoType() + 1));
-			if (!GunsAllowed[p.GetAmmoType()]) {
+			p.changeBulletType((byte) (p.getAmmoType() + 1));
+			if (!GunsAllowed[p.getAmmoType()]) {
 				nextWeapon();
 			}
 		}
 	}
 
 	public void prevWeapon() {
-		if (p.GetAmmoType() == 0) {
-			p.ChangeBulletType((byte) (Player.GUN_TYPES - 1));
+		if (p.getAmmoType() == 0) {
+			p.changeBulletType((byte) (Player.GUN_TYPES - 1));
 			if (!GunsAllowed[GunsAllowed.length - 1]) {
 				prevWeapon();
 			}
 		} else {
-			p.ChangeBulletType((byte) (p.GetAmmoType() - 1));
-			if (!GunsAllowed[p.GetAmmoType()]) {
+			p.changeBulletType((byte) (p.getAmmoType() - 1));
+			if (!GunsAllowed[p.getAmmoType()]) {
 				prevWeapon();
 			}
 		}

@@ -75,7 +75,7 @@ public class InfiniteShot extends PowerUps {
 	public void Death(byte conditions) {
 		cullable = true;
 		if (Collided) {
-			affected.ChangeBulletType(affected.GetAmmoType());
+			affected.changeBulletType(affected.getAmmoType());
 		}
 	}
 
@@ -122,7 +122,7 @@ public class InfiniteShot extends PowerUps {
 	@Override
 	public void Move(Entity e) {
 		if (Collided) {
-			byte b = affected.GetAmmoType();
+			byte b = affected.getAmmoType();
 			switch (b) {
 			case 0:
 			case 1:

@@ -74,7 +74,7 @@ public class ShrinkUp extends PowerUps {
 					null, ex);
 		}
 		if (collided) {
-			affected.SetScale(InitialSize / bonus);
+			affected.setScale(InitialSize / bonus);
 			sound.playAsSoundEffect(1.0f, 0.5f, false);
 		}
 		cullable = true;
@@ -97,10 +97,10 @@ public class ShrinkUp extends PowerUps {
 			if (shape.intersects(e.getBounds())) {
 				if (e.GetType().equals("Player")) {
 					Player p = (Player) e;
-					p.SetScale(bonus);
+					p.setScale(bonus);
 					affected = p;
-					InitialSize = p.GetScale();
-					affected.SetScale(bonus);
+					InitialSize = p.getScale();
+					affected.setScale(bonus);
 					collided = true;
 					EffectTimeleft = EffectTime;
 					sound.playAsSoundEffect(1.0f, 0.5f, false);

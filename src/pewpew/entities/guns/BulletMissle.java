@@ -356,13 +356,13 @@ class Primer extends Bullet {
 	@Override
 	public void Move(Entity e) {
 		Player p = (Player) e;
-		float deltax = x - p.GetRotatedFirePointX();
-		float deltay = y - p.GetRotatedFirePointY();
-		x = p.GetRotatedFirePointX();
-		y = p.GetRotatedFirePointY();
+		float deltax = x - p.getRotatedFirePointX();
+		float deltay = y - p.getRotatedFirePointY();
+		x = p.getRotatedFirePointX();
+		y = p.getRotatedFirePointY();
 		shape.transform(Transform.createTranslateTransform(deltax, deltay));
 		// shape.setCenterY(y);
-		angle = p.GetBulletAngle();
+		angle = p.getBulletAngle();
 		// growthStage =1;
 		tick++;
 
