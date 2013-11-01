@@ -58,12 +58,12 @@ public class Bosteroid extends Asteroid {
     }
 
     @Override
-    public String GetType() {
+    public String getType() {
         return "Bosteroid";
     }
 
     @Override
-    public void Move(Entity e) {
+    public void move(Entity e) {
         // do Child collision and movement then return
 
         if (Collsiontick > 0) {
@@ -92,7 +92,7 @@ public class Bosteroid extends Asteroid {
     }
 
     @Override
-    public void Collides(Entity... en) {
+    public void collides(Entity... en) {
 
         if (en == null || getBounds() == null) {
             return;
@@ -107,27 +107,27 @@ public class Bosteroid extends Asteroid {
             }
 
             Polygon p = e.getBounds();
-            if (e == null || p == null || e == this || e.Cull() || getBounds() == null) {
+            if (e == null || p == null || e == this || e.cull() || getBounds() == null) {
                 continue;
             }
-            e.Collides(this);
+            e.collides(this);
             if (getBounds().intersects(p) || getBounds().contains(p)) {
-                if (e.GetType().equals("Asteroid")) {
+                if (e.getType().equals("Asteroid")) {
                     Asteroid as = (Asteroid) e;
                     // TODO: momentum?
                     as.xv = as.xv * -1;
                     as.yv = as.yv * -1;
                     return;
-                } else if (e.GetSuperType().equals("Bullet")) {
+                } else if (e.getSuperType().equals("Bullet")) {
                     Bullet b = (Bullet) e;
-                    Asteroid as = new Asteroid(b.x, b.y, b.DoDamage() * 1.4f, null, 5);
+                    Asteroid as = new Asteroid(b.x, b.y, b.doDamage() * 1.4f, null, 5);
                     Shape temp[] = shape.subtract(as.getBounds());
                     if (temp.length == 1) {
                         shape = (Polygon) GetLargestShape(temp);
                     }
                 }
-                TakeDamage(e.DoDamage());
-                e.TakeDamage(DoDamage());
+                takeDamage(e.doDamage());
+                e.takeDamage(doDamage());
                 return;
             }
         }
@@ -169,7 +169,7 @@ public class Bosteroid extends Asteroid {
     }
 
     @Override
-    public void TakeDamage(float dmg) {
+    public void takeDamage(float dmg) {
         return;
     }
 

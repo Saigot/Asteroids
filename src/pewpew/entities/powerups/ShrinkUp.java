@@ -65,7 +65,7 @@ public class ShrinkUp extends PowerUps {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		try {
 			sound = AudioLoader.getAudio("OGG", ResourceLoader
 					.getResourceAsStream("Res/Sounds/ShrinkUpOff.ogg"));
@@ -89,13 +89,13 @@ public class ShrinkUp extends PowerUps {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		if (collided) {
 			return;
 		}
 		for (Entity e : en) {
 			if (shape.intersects(e.getBounds())) {
-				if (e.GetType().equals("Player")) {
+				if (e.getType().equals("Player")) {
 					Player p = (Player) e;
 					p.setScale(bonus);
 					affected = p;
@@ -117,46 +117,46 @@ public class ShrinkUp extends PowerUps {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		return 0;
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
+	public void takeDamage(float Damage) {
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		if (collided) {
 			EffectTimeleft--;
 			if (EffectTimeleft == 0) {
-				Death((byte) 0);
+				death((byte) 0);
 			}
 		} else {
 			TimeRemaining--;
 			if (TimeRemaining == 0) {
-				Death((byte) 0);
+				death((byte) 0);
 			}
 		}
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		return cullable;
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "HealthUp";
 	}
 
 	@Override
-	public String GetSuperType() {
-		return super.GetType();
+	public String getSuperType() {
+		return super.getType();
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 

@@ -85,7 +85,7 @@ public class BulletShotGun extends Bullet {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		for (Bullet B : b) {
 			score += B.score;
 		}
@@ -98,7 +98,7 @@ public class BulletShotGun extends Bullet {
 			if (B == null) {
 				continue;
 			}
-			if (B.Cull()) {
+			if (B.cull()) {
 				continue;
 			}
 			B.render(gc, g);
@@ -106,9 +106,9 @@ public class BulletShotGun extends Bullet {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		for (Bullet B : b) {
-			if (B == null || B.getBounds() == null || B == null || B.Cull()) {
+			if (B == null || B.getBounds() == null || B == null || B.cull()) {
 				continue;
 			}
 			for (Entity e : en) {
@@ -116,8 +116,8 @@ public class BulletShotGun extends Bullet {
 					continue;
 				Polygon p = e.getBounds();
 				if (B.shape.intersects(e.getBounds())) {
-					B.TakeDamage(e.DoDamage());
-					e.TakeDamage(B.DoDamage());
+					B.takeDamage(e.doDamage());
+					e.takeDamage(B.doDamage());
 					return;
 				}
 			}
@@ -126,30 +126,30 @@ public class BulletShotGun extends Bullet {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		return (int) (10 * dmgDealMult);
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
-		score += DoDamage();
+	public void takeDamage(float Damage) {
+		score += doDamage();
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		for (Bullet B : b) {
 			if (B == null) {
 				continue;
 			}
-			if (B.Cull()) {
+			if (B.cull()) {
 				continue;
 			}
-			B.Move(e);
+			B.move(e);
 		}
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		if (cullable) {
 			return true;
 		}
@@ -158,7 +158,7 @@ public class BulletShotGun extends Bullet {
 			if (B == null) {
 				continue;
 			}
-			if (!B.Cull()) {
+			if (!B.cull()) {
 				c = false;
 			}
 		}
@@ -167,12 +167,12 @@ public class BulletShotGun extends Bullet {
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "ShotGun";
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		return b;
 	}
 }

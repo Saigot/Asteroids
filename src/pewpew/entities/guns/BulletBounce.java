@@ -89,7 +89,7 @@ public class BulletBounce extends Bullet {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		dead = true;
 		cullable = true;
 	}
@@ -106,21 +106,21 @@ public class BulletBounce extends Bullet {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		for (BulletBounce e : b) {
-			e.Collides(en);
+			e.collides(en);
 		}
 		if (dead) {
 			return;
 		}
 		for (Entity e : en) {
-			if (e == this || e.Cull()) {
+			if (e == this || e.cull()) {
 				continue;
 			}
 			Polygon p = e.getBounds();
 			if (shape.intersects(e.getBounds())) {
-				TakeDamage(e.DoDamage());
-				e.TakeDamage(DoDamage());
+				takeDamage(e.doDamage());
+				e.takeDamage(doDamage());
 				return;
 			}
 		}
@@ -129,7 +129,7 @@ public class BulletBounce extends Bullet {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		float d = (int) ((damage / ((3 * recursion + 1f) / 2)) * dmgDealMult);
 		if (d < 1) {
 			d = 1;
@@ -138,11 +138,11 @@ public class BulletBounce extends Bullet {
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
+	public void takeDamage(float Damage) {
 		if (Damageless > 0) {
 			return;
 		}
-		score += DoDamage() / 4f;
+		score += doDamage() / 4f;
 		// spawn new guys randomly in the 180 degree space behind the bullet
 		float minAngle = (float) (angle + Math.PI);
 		float maxAngle = (float) (angle - Math.PI);
@@ -152,13 +152,13 @@ public class BulletBounce extends Bullet {
 			b.add(new BulletBounce(x, y, (float) (Math.random()
 					* (maxAngle - minAngle) + minAngle), speed + 1,
 					recursion + 1));
-			b.get(b.size() - 1).Move(this);
+			b.get(b.size() - 1).move(this);
 		}
-		Death((byte) 0);
+		death((byte) 0);
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		if (!dead) {
 			x += xv;
 			y += yv;
@@ -168,14 +168,14 @@ public class BulletBounce extends Bullet {
 		Damageless--;
 		// cull if neccesary
 		if (x >= FORM_WIDTH || x <= 0 || y >= FORM_HEIGHT || y <= 0) {
-			Death((byte) 0);
+			death((byte) 0);
 		}
 		for (BulletBounce en : b) {
-			en.Move(e);
+			en.move(e);
 		}
 		// cull
 		for (int i = 0; i <= b.size() - 1; i++) {
-			if (b.get(i).Cull()) {
+			if (b.get(i).cull()) {
 				score += b.get(i).score;
 				b.remove(i);
 			}
@@ -183,10 +183,10 @@ public class BulletBounce extends Bullet {
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		boolean CullMe = cullable;
 		for (BulletBounce en : b) {
-			if (!en.Cull()) {
+			if (!en.cull()) {
 				CullMe = false;
 			}
 		}
@@ -194,15 +194,15 @@ public class BulletBounce extends Bullet {
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "Bonunce";
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		ArrayList<Entity> t = new ArrayList<>();
 		for (BulletBounce en : b) {
-			t.addAll(Arrays.asList(en.GetAllChildren()));
+			t.addAll(Arrays.asList(en.getAllChildren()));
 		}
 		t.add(this);
 		return t.toArray(new Entity[t.size()]);

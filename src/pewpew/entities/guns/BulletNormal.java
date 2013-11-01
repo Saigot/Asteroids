@@ -26,15 +26,15 @@ import pewpew.entities.Entity;
  */
 public class BulletNormal extends Bullet {
 	// <editor-fold defaultstate="collapsed" desc="Variables">
-	float Damage = 15f;
-	Color c = new Color(Color.red);
-	int range;
+	public float Damage = 15f;
+	public Color c = new Color(Color.red);
+	public int range;
 	public static final int SuggestedCooldown = 10;
 	public static final int SuggestedCost = 5;
 	public static final Audio NORMAL_SOUND;
 	public static final Image NORMAL_BARREL;
-	int culltick = 0;
-	int culltickend = 5;
+	public int culltick = 0;
+	public int culltickend = 5;
 	static {
 		Image i;
 		try {
@@ -72,7 +72,7 @@ public class BulletNormal extends Bullet {
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		if (cullable) {
 			culltick++;
 			return;
@@ -107,7 +107,7 @@ public class BulletNormal extends Bullet {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		cullable = true;
 	}
 
@@ -123,18 +123,18 @@ public class BulletNormal extends Bullet {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		if (cullable) {
 			return;
 		}
 		for (Entity e : en) {
-			if (e == null || e.getBounds() == null || e == this || e.Cull())
+			if (e == null || e.getBounds() == null || e == this || e.cull())
 				continue;
 			Polygon p = e.getBounds();
 			if (shape.intersects(e.getBounds())
 					|| shape.contains(e.getBounds())) {
-				TakeDamage(e.DoDamage());
-				e.TakeDamage(DoDamage());
+				takeDamage(e.doDamage());
+				e.takeDamage(doDamage());
 				continue;
 			}
 		}
@@ -142,7 +142,7 @@ public class BulletNormal extends Bullet {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		if (cullable && culltick != 0) {
 			return 0;
 		}
@@ -150,25 +150,25 @@ public class BulletNormal extends Bullet {
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
+	public void takeDamage(float Damage) {
 		if (!cullable || culltick == 0) {
-			score += DoDamage();
-			Death((byte) 0);
+			score += doDamage();
+			death((byte) 0);
 		}
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		return cullable && culltick > culltickend;
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "Normal";
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		return new Entity[] { this };
 	}
 

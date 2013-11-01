@@ -75,7 +75,7 @@ public class BulletMissle extends Bullet {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		cullable = true;
 
 	}
@@ -103,9 +103,9 @@ public class BulletMissle extends Bullet {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		if (stage == 0) {
-			TargetSys.Collides(en);
+			TargetSys.collides(en);
 			Entity t = TargetSys.Target;
 			if (t != null) {
 				stage++;
@@ -123,7 +123,7 @@ public class BulletMissle extends Bullet {
 			}
 		} else if (stage == 2) {
 			if (bomb != null) {
-				bomb.Collides(en);
+				bomb.collides(en);
 				return;
 			}
 		}
@@ -132,7 +132,7 @@ public class BulletMissle extends Bullet {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 
 		if (stage < 2) {
 			return 0;
@@ -141,14 +141,14 @@ public class BulletMissle extends Bullet {
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
-		score += DoDamage();
+	public void takeDamage(float Damage) {
+		score += doDamage();
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		if (stage == 0) {
-			TargetSys.Move(e);
+			TargetSys.move(e);
 			Bullet.FireSound.playAsSoundEffect(1.0f, 0.5f, false);
 		} else if (stage == 1) {
 			// find angle to travel at
@@ -200,30 +200,30 @@ public class BulletMissle extends Bullet {
 				bomb.growthrate = 7f;
 				bomb.c = Color.red;
 			}
-			bomb.Move(e);
+			bomb.move(e);
 		}
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		if (stage == 0) {
-			return TargetSys.Cull();
+			return TargetSys.cull();
 		} else if (stage == 2) {
 			if (bomb == null) {
 				return false;
 			}
-			return bomb.Cull();
+			return bomb.cull();
 		}
 		return false;
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "Missle";
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		Entity[] e = { this, TargetSys };
 		return e;
 	}
@@ -290,7 +290,7 @@ class Primer extends Bullet {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -322,17 +322,17 @@ class Primer extends Bullet {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		if (Target != null) {
 			return;
 		}
 		for (Entity e : en) {
-			if (e == this || e.Cull()) {
+			if (e == this || e.cull()) {
 				continue;
 			}
 			if (shape != null) {
 				if (shape.intersects(e.getBounds())) {
-					if (e.GetSuperType().equals("Enemy")) {
+					if (e.getSuperType().equals("Enemy")) {
 						Target = (Enemy) e;
 						return;
 					}
@@ -344,17 +344,17 @@ class Primer extends Bullet {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		return 0;
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
+	public void takeDamage(float Damage) {
 		score += 10;
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		Player p = (Player) e;
 		float deltax = x - p.getRotatedFirePointX();
 		float deltay = y - p.getRotatedFirePointY();
@@ -421,17 +421,17 @@ class Primer extends Bullet {
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		return (done && Target == null) || cullable;
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "Primer";
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		Entity e[] = { this };
 		return e;
 	}

@@ -22,29 +22,29 @@ public interface Entity {
 	 * @param conditions
 	 *            : 0 = normal 1 = cull 2+ = other death functions
 	 */
-	public abstract void Death(byte conditions);
+	public abstract void death(byte conditions);
 
 	public abstract void render(GameContainer gc, Graphics g);
 
 	// checks whether parent or it's children has collided with e, if so returns
 	// the child or parent
 	// that collided else null
-	public abstract void Collides(Entity... en);
+	public abstract void collides(Entity... en);
 
 	public abstract Polygon getBounds();
 
-	public float DoDamage();
+	public float doDamage();
 
-	public void TakeDamage(float Damage);
+	public void takeDamage(float Damage);
 
-	public void Move(Entity e);
+	public void move(Entity e);
 
-	public boolean Cull();
+	public boolean cull();
 
-	public String GetType();
+	public String getType();
 
-	public String GetSuperType();
+	public String getSuperType();
 
-	public Entity[] GetAllChildren();
+	public Entity[] getAllChildren();
 
 }

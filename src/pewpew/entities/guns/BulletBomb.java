@@ -93,7 +93,7 @@ public class BulletBomb extends Bullet {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		cullable = true;
 	}
 
@@ -111,17 +111,17 @@ public class BulletBomb extends Bullet {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		if (!Exploded) {
 			return;
 		}
 		for (Entity e : en) {
-			if (e == this || e.Cull())
+			if (e == this || e.cull())
 				continue;
 			Polygon p = e.getBounds();
 			if (shape.intersects(e.getBounds())) {
-				TakeDamage(e.DoDamage());
-				e.TakeDamage(DoDamage());
+				takeDamage(e.doDamage());
+				e.takeDamage(doDamage());
 				return;
 			}
 		}
@@ -129,17 +129,17 @@ public class BulletBomb extends Bullet {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		return (int) (10f * dmgDealMult);
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
-		score += DoDamage();
+	public void takeDamage(float Damage) {
+		score += doDamage();
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		if (!Exploded) {
 			FuseRemaining--;
 			if (FuseRemaining < 0) {
@@ -173,17 +173,17 @@ public class BulletBomb extends Bullet {
 		}
 		shape = new Polygon(poly);
 		if (Radius < 0 && Shrinking) {
-			Death((byte) 0);
+			death((byte) 0);
 		}
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		return cullable;
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "BulletBomb";
 	}
 
@@ -193,7 +193,7 @@ public class BulletBomb extends Bullet {
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		Entity[] e = { this };
 		return e;
 	}

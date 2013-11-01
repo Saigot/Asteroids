@@ -32,7 +32,7 @@ abstract public class PowerUps implements Entity {
 	public boolean Collided;
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "PowerUps";
 	}
 

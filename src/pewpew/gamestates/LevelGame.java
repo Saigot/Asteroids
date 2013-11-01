@@ -64,7 +64,7 @@ public class LevelGame extends StandardGame {
 			throws SlickException {
 		tick++;
 		for (int i = 0; i <= e.size() - 1; i++) {
-			if (e.get(i).GetSuperType().equals("Enemy")) {
+			if (e.get(i).getSuperType().equals("Enemy")) {
 				pewpew.entities.Enemy en = (pewpew.entities.Enemy) e.get(i);
 				if (en.isKilled() && en.GetKillCounts()) {
 					EnemiesKilled++;

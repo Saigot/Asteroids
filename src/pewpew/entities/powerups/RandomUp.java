@@ -43,7 +43,7 @@ public class RandomUp extends PowerUps {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		cullable = true;
 	}
 
@@ -56,14 +56,14 @@ public class RandomUp extends PowerUps {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		for (Entity e : en) {
 			if (shape.intersects(e.getBounds()) && !Collided) {
-				if (e.GetType().equals("Player")) {
+				if (e.getType().equals("Player")) {
 					Player p = (Player) e;
 					ActivePowerUp = GetCurrentPowerUp();
-					ActivePowerUp.Move(e);
-					ActivePowerUp.Collides(p);
+					ActivePowerUp.move(e);
+					ActivePowerUp.collides(p);
 					Collided = true;
 				}
 				return;
@@ -96,30 +96,30 @@ public class RandomUp extends PowerUps {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		return 0;
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
+	public void takeDamage(float Damage) {
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		TimeRemaining--;
 		if (TimeRemaining <= 0 && !Collided) {
-			Death((byte) 0);
+			death((byte) 0);
 		}
 
 		if (Collided) {
-			ActivePowerUp.Move(e);
+			ActivePowerUp.move(e);
 		}
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		if (ActivePowerUp != null) {
-			if (ActivePowerUp.Cull()) {
+			if (ActivePowerUp.cull()) {
 				cullable = true;
 				return true;
 			} else {
@@ -131,17 +131,17 @@ public class RandomUp extends PowerUps {
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "RandomUp";
 	}
 
 	@Override
-	public String GetSuperType() {
-		return super.GetType();
+	public String getSuperType() {
+		return super.getType();
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		return null;
 	}
 

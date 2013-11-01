@@ -278,7 +278,7 @@ public class Player implements Entity {
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		if (health < 0) {
 			return;
 		}
@@ -315,10 +315,10 @@ public class Player implements Entity {
 
 		// move and cull bullets
 		for (int i = 0; i <= b.size() - 1; i++) {
-			b.get(i).Move(this);
+			b.get(i).move(this);
 		}
 		for (int i = 0; i <= b.size() - 1; i++) {
-			if (b.get(i).Cull()) {
+			if (b.get(i).cull()) {
 				score += b.get(i).GetScore();
 				b.remove(i);
 			}
@@ -445,19 +445,19 @@ public class Player implements Entity {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		// temp debug invincibility
 		System.out.println("DEAD: " + score);
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		score += 10;
 		return (int) 50f;
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
+	public void takeDamage(float Damage) {
 		// no damage if cooldown hasn't expired else damage and rest counter
 		if (damagetick > 0) {
 			return;
@@ -465,22 +465,22 @@ public class Player implements Entity {
 		health -= (Damage * dmgRecieveMult);
 		damagetick = damageCoolDown;
 		if (health < 0) {
-			Death((byte) 0);
+			death((byte) 0);
 		}
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		if (health < 0) {
 			return;
 		}
 		for (Entity e : en) {
-			if (e == null || e.getBounds() == null || e == this || e.Cull()) {
+			if (e == null || e.getBounds() == null || e == this || e.cull()) {
 				continue;
 			}
 			if (shape.intersects(e.getBounds())) {
-				TakeDamage(e.DoDamage());
-				e.TakeDamage(DoDamage());
+				takeDamage(e.doDamage());
+				e.takeDamage(doDamage());
 				return;
 			}
 			// for (int i = 0; i <= b.size() - 1; i++) {
@@ -496,29 +496,29 @@ public class Player implements Entity {
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		return false;
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		return "Player";
 	}
 
 	@Override
-	public String GetSuperType() {
+	public String getSuperType() {
 		return "Player";
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		if (health < 0) {
 			return null;
 		}
 		ArrayList<Entity> e = new ArrayList<>();
 		e.add(this);
 		for (int i = 0; i <= b.size() - 1; i++) {
-			e.addAll(Arrays.asList(b.get(i).GetAllChildren()));
+			e.addAll(Arrays.asList(b.get(i).getAllChildren()));
 		}
 		return e.toArray(new Entity[e.size()]);
 		// Entity[] e = new Entity[b.size()+1];

@@ -48,7 +48,7 @@ public abstract class Bullet implements Entity {
 	}
 
 	@Override
-	public String GetSuperType() {
+	public String getSuperType() {
 		return "Bullet";
 	}
 }

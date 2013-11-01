@@ -72,7 +72,7 @@ public class InfiniteShot extends PowerUps {
 	}
 
 	@Override
-	public void Death(byte conditions) {
+	public void death(byte conditions) {
 		cullable = true;
 		if (Collided) {
 			affected.changeBulletType(affected.getAmmoType());
@@ -87,10 +87,10 @@ public class InfiniteShot extends PowerUps {
 	}
 
 	@Override
-	public void Collides(Entity... en) {
+	public void collides(Entity... en) {
 		for (Entity e : en) {
 			if (shape.intersects(e.getBounds()) && !Collided) {
-				if (e.GetType().equals("Player")) {
+				if (e.getType().equals("Player")) {
 					Player p = (Player) e;
 					Collided = true;
 					affected = p;
@@ -110,17 +110,17 @@ public class InfiniteShot extends PowerUps {
 	}
 
 	@Override
-	public float DoDamage() {
+	public float doDamage() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public void TakeDamage(float Damage) {
+	public void takeDamage(float Damage) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public void Move(Entity e) {
+	public void move(Entity e) {
 		if (Collided) {
 			byte b = affected.getAmmoType();
 			switch (b) {
@@ -142,36 +142,36 @@ public class InfiniteShot extends PowerUps {
 
 			EffectTimeleft--;
 			if (EffectTimeleft < 0) {
-				Death((byte) 0);
+				death((byte) 0);
 			} else {
 				Bullet.FireSound = null;
 			}
 		} else {
 			TimeRemaining--;
 			if (TimeRemaining == 0) {
-				Death((byte) 0);
+				death((byte) 0);
 			}
 		}
 	}
 
 	@Override
-	public boolean Cull() {
+	public boolean cull() {
 		return cullable;
 	}
 
 	@Override
-	public String GetType() {
+	public String getType() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public Entity[] GetAllChildren() {
+	public Entity[] getAllChildren() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public String GetSuperType() {
-		return super.GetType();
+	public String getSuperType() {
+		return super.getType();
 	}
 
 	@Override

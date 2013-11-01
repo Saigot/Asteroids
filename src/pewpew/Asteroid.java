@@ -111,7 +111,7 @@ public class Asteroid extends Enemy {
     }
 
     @Override
-    public void Collides(Entity... en) {
+    public void collides(Entity... en) {
         if (en == null) {
             return;
         }
@@ -121,20 +121,20 @@ public class Asteroid extends Enemy {
             Collsiontick = CollisionCoolDown;
         }
         for (Entity e : en) {
-            if (e == null || e.getBounds() == null || e == this || e.Cull()) {
+            if (e == null || e.getBounds() == null || e == this || e.cull()) {
                 continue;
             }
             Polygon p = e.getBounds();
             if (shape.intersects(e.getBounds()) || shape.contains(e.getBounds())) {
-                if (e.GetType().equals("Asteroid")) {
+                if (e.getType().equals("Asteroid")) {
                     Asteroid as = (Asteroid) e;
                     // TODO: momentum?
                     as.xv = as.xv * -1;
                     as.yv = as.yv * -1;
                     continue;
                 }
-                TakeDamage(e.DoDamage());
-                e.TakeDamage(DoDamage());
+                takeDamage(e.doDamage());
+                e.takeDamage(doDamage());
                 continue;
             }
             if (a == null) {
@@ -147,7 +147,7 @@ public class Asteroid extends Enemy {
     }
 
     @Override
-    public void Death(byte conditions) {
+    public void death(byte conditions) {
         cullable = true;
     }
 
@@ -172,18 +172,18 @@ public class Asteroid extends Enemy {
     }
 
     @Override
-    public void Move(Entity e) {
+    public void move(Entity e) {
         // do Child collision and movement then return
         if (a != null) {
             for (int i = 0; i <= a.length - 1; i++) {
                 if (a[i] != null) {
-                    a[i].Move(e);
+                    a[i].move(e);
                 }
             }
             for (int i = 0; i <= a.length - 1; i++) {
                 for (int j = i + 1; j <= a.length - 1; j++) {
                     if (a[i] != null && a[j] != null) {
-                        a[i].Collides(a[j].GetAllChildren());
+                        a[i].collides(a[j].getAllChildren());
                     }
                 }
             }
@@ -222,12 +222,12 @@ public class Asteroid extends Enemy {
     }
 
     @Override
-    public float DoDamage() {
+    public float doDamage() {
         return size / 4;
     }
 
     @Override
-    public void TakeDamage(float Damage) {
+    public void takeDamage(float Damage) {
         health -= Damage;
         if (health < 0 && a == null) {
             int Asteroids = (int) (Math.random() * 5) + 2;
@@ -247,20 +247,20 @@ public class Asteroid extends Enemy {
                     a[i].yv = (float) (speed * Math.sin(angle));
                 }
             } else {
-                Death((byte) 0);
+                death((byte) 0);
             }
         }
     }
 
     @Override
-    public boolean Cull() {
+    public boolean cull() {
         if (cullable) {
             return true;
         }
         if (health < 0) {
             boolean cull = true;
             for (int i = 0; i <= a.length - 1; i++) {
-                if (!a[i].Cull()) {
+                if (!a[i].cull()) {
                     return false;
                 }
             }
@@ -270,12 +270,12 @@ public class Asteroid extends Enemy {
     }
 
     @Override
-    public String GetType() {
+    public String getType() {
         return "Asteroid";
     }
 
     @Override
-    public Entity[] GetAllChildren() {
+    public Entity[] getAllChildren() {
         ArrayList<Entity> b = new ArrayList<>();
         Entity e[];
         if (a == null) {
@@ -285,8 +285,8 @@ public class Asteroid extends Enemy {
         } else {
             for (int i = 0; i <= a.length - 1; i++) {
                 if (a[i] != null) {
-                    if (!a[i].Cull()) {
-                        b.addAll(Arrays.asList(a[i].GetAllChildren()));
+                    if (!a[i].cull()) {
+                        b.addAll(Arrays.asList(a[i].getAllChildren()));
                     }
                 }
             }
@@ -296,7 +296,7 @@ public class Asteroid extends Enemy {
 
     @Override
     public boolean isKilled() {
-        return Cull();
+        return cull();
     }
 
     @Override

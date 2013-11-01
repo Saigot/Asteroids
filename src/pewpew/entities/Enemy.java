@@ -50,7 +50,7 @@ abstract public class Enemy implements Entity {
 	public abstract double GetSpawnProb();
 
 	@Override
-	public abstract void Death(byte conditions);
+	public abstract void death(byte conditions);
 
 	@Override
 	public abstract void render(GameContainer gc, Graphics g);
@@ -65,7 +65,7 @@ abstract public class Enemy implements Entity {
 	}
 
 	@Override
-	public String GetSuperType() {
+	public String getSuperType() {
 		return "Enemy";
 	}
 }

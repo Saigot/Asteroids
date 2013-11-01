@@ -148,14 +148,14 @@ public class StandardGame extends BasicGameState {
 			throws SlickException {
 		// cull powerups
 		for (int i = 0; i <= pow.size() - 1; i++) {
-			if (pow.get(i).Cull()) {
+			if (pow.get(i).cull()) {
 				pow.remove(i);
 			}
 		}
 
 		// cull enemies
 		for (int i = 0; i <= e.size() - 1; i++) {
-			if (e.get(i).Cull()) {
+			if (e.get(i).cull()) {
 				e.remove(i);
 			}
 		}
@@ -165,15 +165,15 @@ public class StandardGame extends BasicGameState {
 		gc.setSoundOn(g.mute);
 		Input in = gc.getInput();
 		g.GetUniversalOptions(in, gc);
-		p.Move(null);
+		p.move(null);
 		GetMotion(in, gc, sbg, delta);
 		// move enemies
 		for (int i = 0; i <= e.size() - 1; i++) {
-			e.get(i).Move(p);
+			e.get(i).move(p);
 		}
 		// move powerups
 		for (int i = 0; i <= pow.size() - 1; i++) {
-			pow.get(i).Move(p);
+			pow.get(i).move(p);
 		}
 		// collision check enemies
 		for (int i = 0; i <= e.size(); i++) {
@@ -194,24 +194,24 @@ public class StandardGame extends BasicGameState {
 					continue;
 				}
 
-				if (en == null || en2 == null || en.GetAllChildren() == null
-						|| en2.GetAllChildren() == null) {
+				if (en == null || en2 == null || en.getAllChildren() == null
+						|| en2.getAllChildren() == null) {
 					continue;
 				}
-				for (Entity ent : en.GetAllChildren()) {
-					for (Entity ent2 : en2.GetAllChildren()) {
+				for (Entity ent : en.getAllChildren()) {
+					for (Entity ent2 : en2.getAllChildren()) {
 						if (ent2 == null || ent == null) {
 							continue;
 						}
-						ent2.Collides(ent);
-						ent.Collides(ent2);
+						ent2.collides(ent);
+						ent.collides(ent2);
 					}
 				}
 			}
 		}
 		// collsion check powerups
 		for (int i = 0; i <= pow.size() - 1; i++) {
-			pow.get(i).Collides(p);
+			pow.get(i).collides(p);
 		}
 		SoundStore.get().poll(0);
 		// spawn enemy
