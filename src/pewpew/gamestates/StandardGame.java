@@ -17,7 +17,7 @@ import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import pewpew.Asteroid;
+import pewpew.entities.Asteroid;
 import pewpew.entities.Entity;
 import pewpew.entities.Player;
 import pewpew.entities.PowerUps;
@@ -76,7 +76,7 @@ public class StandardGame extends BasicGameState {
 		e.add(new Asteroid(-1, -1, p));
 	}
 
-	public void GetMotion(Input in, GameContainer gc, StateBasedGame sbg,
+	public void getMotion(Input in, GameContainer gc, StateBasedGame sbg,
 			int delta) throws SlickException {
 		if (in.isKeyDown(Input.KEY_UP)) {
 			float rotation = (float) Math.toRadians(p.getRotation());
@@ -135,7 +135,7 @@ public class StandardGame extends BasicGameState {
 			prevWeapon();
 		}
 
-		if (GameOver()) {
+		if (gameOver()) {
 			if (in.isKeyPressed(Input.KEY_R)) {
 				sbg.initStatesList(gc);
 			}
@@ -166,7 +166,7 @@ public class StandardGame extends BasicGameState {
 		Input in = gc.getInput();
 		g.GetUniversalOptions(in, gc);
 		p.move(null);
-		GetMotion(in, gc, sbg, delta);
+		getMotion(in, gc, sbg, delta);
 		// move enemies
 		for (int i = 0; i <= e.size() - 1; i++) {
 			e.get(i).move(p);
@@ -314,7 +314,7 @@ public class StandardGame extends BasicGameState {
 			g.setColor(messageColor);
 			g.drawString(message, 0, 50);
 		}
-		if (GameOver()) {
+		if (gameOver()) {
 			g.drawString("DEAD", Entity.FORM_WIDTH / 2 - 20,
 					Entity.FORM_HEIGHT / 2);
 			g.drawString("press r to restart", Entity.FORM_WIDTH / 2 - 75,
@@ -357,7 +357,7 @@ public class StandardGame extends BasicGameState {
 
 	}
 
-	public boolean GameOver() {
+	public boolean gameOver() {
 		if (p.health < 0) {
 			return true;
 		} else

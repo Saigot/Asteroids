@@ -55,7 +55,7 @@ abstract public class Enemy implements Entity {
 	@Override
 	public abstract void render(GameContainer gc, Graphics g);
 
-	public int GetHealth() {
+	public int getHealth() {
 		return health;
 	}
 

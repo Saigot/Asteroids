@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 
 import org.newdawn.slick.SlickException;
 
-import pewpew.Asteroid;
+import pewpew.entities.Asteroid;
 import pewpew.entities.Bullet;
 import pewpew.entities.Player;
 import pewpew.entities.powerups.HealthUp;

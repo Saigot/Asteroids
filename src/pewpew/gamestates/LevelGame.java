@@ -136,9 +136,9 @@ public class LevelGame extends StandardGame {
 	}
 
 	@Override
-	public void GetMotion(Input in, GameContainer gc, StateBasedGame sbg,
+	public void getMotion(Input in, GameContainer gc, StateBasedGame sbg,
 			int delta) throws SlickException {
-		super.GetMotion(in, gc, sbg, delta);
+		super.getMotion(in, gc, sbg, delta);
 		if (in.isKeyPressed(Input.KEY_C) && gameCondition == 2) {
 			levelUp(gc, sbg);
 		}
@@ -207,7 +207,7 @@ public class LevelGame extends StandardGame {
 	}
 
 	@Override
-	public boolean GameOver() {
+	public boolean gameOver() {
 		if (gameCondition == 3) {
 			p.health = -1;
 			return true;

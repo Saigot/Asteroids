@@ -176,8 +176,8 @@ public class BulletMissle extends Bullet {
 					|| (yv < 0 && ya > 0)) {
 				yv += ya;
 			}
-			xv = Util.DoFrictionX(xv, yv, 0.1f);
-			yv = Util.DoFrictionY(xv, yv, 0.1f);
+			xv = Util.doFrictionX(xv, yv, 0.1f);
+			yv = Util.doFrictionY(xv, yv, 0.1f);
 			// System.out.println(xa);
 			// System.out.println(ya);
 			x += xv;

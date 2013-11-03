@@ -290,8 +290,8 @@ public class Player implements Entity {
 		tick++;
 
 		// friction
-		xv = Util.DoFrictionX(xv, yv, friction);
-		yv = Util.DoFrictionY(xv, yv, friction);
+		xv = Util.doFrictionX(xv, yv, friction);
+		yv = Util.doFrictionY(xv, yv, friction);
 
 		// move ship
 		x += xv;

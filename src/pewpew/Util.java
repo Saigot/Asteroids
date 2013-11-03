@@ -9,7 +9,7 @@ package pewpew;
  * @author michael
  */
 public class Util {
-    public static float DoFrictionX(float xv, float yv, float FRICTION) {
+    public static float doFrictionX(float xv, float yv, float FRICTION) {
         float angle = (float) Math.atan(yv / xv);
         if (xv == 0) {
             if (yv == 0) {
@@ -37,7 +37,7 @@ public class Util {
         return xv;
     }
 
-    public static float DoFrictionY(float xv, float yv, float FRICTION) {
+    public static float doFrictionY(float xv, float yv, float FRICTION) {
         float angle = (float) Math.atan(yv / xv);
         if (xv == 0) {
             if (yv == 0) {
