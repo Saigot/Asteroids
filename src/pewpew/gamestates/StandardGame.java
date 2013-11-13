@@ -43,7 +43,7 @@ public class StandardGame extends BasicGameState {
 	boolean starflicker = true;
 	String message = "hello world";
 	Color messageColor = new Color(Color.white);
-	boolean InfiniteAmmo = false;
+	boolean InfiniteAmmo = true;
 	static boolean[] GunsAllowed = { true, true, true, true, true };
 
 	StandardGame() {

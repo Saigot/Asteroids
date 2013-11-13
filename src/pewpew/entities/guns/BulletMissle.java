@@ -220,7 +220,7 @@ public class BulletMissle extends Bullet {
 
 	@Override
 	public String getType() {
-		return "Missle";
+            return "Missle";
 	}
 
 	@Override
@@ -431,4 +431,10 @@ class Primer extends Bullet {
 		Entity e[] = { this };
 		return e;
 	}
+        
+        @Override
+	public String getType() {
+            return "Primer";
+	}
+        
 }
