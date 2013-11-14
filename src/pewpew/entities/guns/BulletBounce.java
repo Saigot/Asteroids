@@ -204,4 +204,8 @@ public class BulletBounce extends Bullet {
 		return t.toArray(new Entity[t.size()]);
 	}
 
+        @Override
+        public String getType(){
+            return "Bounce";
+        }
 }

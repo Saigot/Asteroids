@@ -193,5 +193,10 @@ public class BulletBomb extends Bullet {
 		Entity[] e = { this };
 		return e;
 	}
+        
+        @Override
+        public String getType(){
+            return "Bomb";
+        }
 
 }

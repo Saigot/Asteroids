@@ -72,7 +72,7 @@ public class MainGame extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
-		ARCADE = new StandardGame();
+		ARCADE = new LevelGame(-1);
 		LEVELS = new LevelGame(0);
 		switch (gameType) {
 		case 1:

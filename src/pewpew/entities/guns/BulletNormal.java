@@ -167,5 +167,9 @@ public class BulletNormal extends Bullet {
 	public Entity[] getAllChildren() {
 		return new Entity[] { this };
 	}
+        
+        public String getType(){
+            return "NormalBullet";
+        }
 
 }

@@ -72,33 +72,33 @@ public class LevelReader {
 		line = br.readLine();
 		String[] enemies = line.split(",");
 		for (int i = 0; i <= enemies.length - 3; i += 3) {
-			switch (enemies[0]) {
+			switch (enemies[i]) {
 			case "Asteroid":
 				Asteroid a = new Asteroid(i, i, null);
-				a.SetKillCounts(Boolean.parseBoolean(enemies[1]));
-				a.SetSpawnProb(Double.parseDouble(enemies[2]));
+				a.SetKillCounts(Boolean.parseBoolean(enemies[i+1]));
+				a.SetSpawnProb(Double.parseDouble(enemies[i+2]));
 				break;
 			}
 		}
 		line = br.readLine();
 		String[] Powerups = line.split(",");
-		for (int i = 0; i <= enemies.length - 1; i += 3) {
-			switch (enemies[0]) {
+		for (int i = 0; i <= Powerups.length - 2; i += 2) {
+			switch (Powerups[i]) {
 			case "HealthUp":
 				HealthUp a = new HealthUp();
-				a.SetSpawnProb(Double.parseDouble(enemies[2]));
+				a.SetSpawnProb(Double.parseDouble(Powerups[i+1]));
 				break;
 			case "RandomUp":
 				RandomUp r = new RandomUp();
-				r.SetSpawnProb(Double.parseDouble(enemies[2]));
+				r.SetSpawnProb(Double.parseDouble(Powerups[i+1]));
 				break;
 			case "InfiniteShot":
 				InfiniteShot is = new InfiniteShot();
-				is.SetSpawnProb(Double.parseDouble(enemies[2]));
+				is.SetSpawnProb(Double.parseDouble(Powerups[i+1]));
 				break;
 			case "ShrinkUp":
 				ShrinkUp s = new ShrinkUp();
-				s.SetSpawnProb(Double.parseDouble(enemies[2]));
+				s.SetSpawnProb(Double.parseDouble(Powerups[i+1]));
 				break;
 			}
 		}

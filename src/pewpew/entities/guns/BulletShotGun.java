@@ -172,4 +172,9 @@ public class BulletShotGun extends Bullet {
 	public Entity[] getAllChildren() {
 		return b;
 	}
+        
+        @Override
+        public String getType(){
+            return "ShotGun";
+        }
 }

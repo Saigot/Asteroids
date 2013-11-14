@@ -227,17 +227,22 @@ public class StandardGame extends BasicGameState {
 				&& MaxPowerups > pow.size()) {
 			if (Math.random() < 0.1) {
 				double rand = Math.random();
-				if (rand > ShrinkUp.SpawnProbibility) {
+                                boolean spawn = false;
+				if (rand < ShrinkUp.SpawnProbibility) {
 					pow.add(new ShrinkUp());
-				} else if (rand > RandomUp.SpawnProbibility) {
+                                        spawn = true;
+				} else if (rand < RandomUp.SpawnProbibility) {
 					pow.add(new RandomUp());
-				} else if (rand > HealthUp.SpawnProbibility) {
+                                        spawn = true;
+				} else if (rand < HealthUp.SpawnProbibility) {
 					pow.add(new HealthUp());
-				} else if (rand > InfiniteShot.SpawnProbibility) {
+                                        spawn = true;
+				} else if (rand < InfiniteShot.SpawnProbibility) {
 					pow.add(new InfiniteShot());
+                                        spawn = true;
 				}
 
-				if (PowerUpCoolDown < 999) {
+				if (PowerUpCoolDown < 999 && spawn) {
 					PowerUpCoolDown++;
 				}
 			}
