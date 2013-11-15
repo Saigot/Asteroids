@@ -102,7 +102,7 @@ public class Asteroid extends Enemy {
 
     // childs
     public Asteroid(float X, float Y, float Size) {
-        this(X, Y, Size, new Player(), (int) (Math.random() * 27) + 3);
+        this(X, Y, Size, null , (int) (Math.random() * 27) + 3);
         // (int)(Math.random()*(10*(size/40))) + 3; FOR SMOOTH
     }
 

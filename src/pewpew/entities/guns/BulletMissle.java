@@ -219,11 +219,6 @@ public class BulletMissle extends Bullet {
 	}
 
 	@Override
-	public String getType() {
-            return "Missle";
-	}
-
-	@Override
 	public Entity[] getAllChildren() {
 		Entity[] e = { this, TargetSys };
 		return e;

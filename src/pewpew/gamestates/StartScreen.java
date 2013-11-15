@@ -53,7 +53,9 @@ public class StartScreen implements ActionListener {
 		app.setUpdateOnlyWhenVisible(true);
 		app.setVerbose(false);
 		app.setDisplayMode(1000, 700, false);
-		app.start();
+		app.setTargetFrameRate(60);
+                app.start();
+                
 	}
 
 	public void InitiateLevelMode() throws SlickException {
@@ -62,7 +64,9 @@ public class StartScreen implements ActionListener {
 		app.setUpdateOnlyWhenVisible(true);
 		app.setVerbose(false);
 		app.setDisplayMode(1000, 700, false);
-		app.start();
+		app.setTargetFrameRate(60);
+                app.start();
+                
 	}
 
 	@Override

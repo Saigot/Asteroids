@@ -110,8 +110,8 @@ public class LevelGame extends StandardGame {
 			} else {
 				g.setColor(Color.white);
 			}
-			String Time = "Time: " + Integer.toString(tick) + "/"
-					+ Integer.toString(TimeLimit);
+			String Time = "Time: " + Integer.toString(tick/60) + "/"
+					+ Integer.toString(TimeLimit/60);
 			g.drawString(Time, 25, gc.getHeight() - (25 * Conditions));
 			++Conditions;
 		}

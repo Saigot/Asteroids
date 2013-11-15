@@ -34,10 +34,10 @@ public class StandardGame extends BasicGameState {
 	Player p;
 	ArrayList<Entity> e;
 	ArrayList<PowerUps> pow;
-	int MaxPowerups = 3;
-	int PowerUpCoolDown = 200;
-	int EnemyCoolDown = 200;
-	int MaxEnemies = 10;
+	int MaxPowerups = 0;
+	int PowerUpCoolDown = 00;
+	int EnemyCoolDown = 00;
+	int MaxEnemies = 0;
 	int StarArray[];
 	boolean stars = true;
 	boolean starflicker = true;
@@ -49,7 +49,7 @@ public class StandardGame extends BasicGameState {
 	StandardGame() {
 		pow = new ArrayList<>();
 		e = new ArrayList<>();
-		p = new Player();
+		p = new Player(true);
 		message = "old highscore here";
 	}
 
@@ -58,7 +58,7 @@ public class StandardGame extends BasicGameState {
 			throws SlickException {
 		pow = new ArrayList<>();
 		e = new ArrayList<>();
-		p = new Player();
+		p = new Player(true);
 		message = "";
 		if (stars) {
 			StarArray = new int[(int) ((Math.random() * 50) + 1) * 3];
@@ -215,8 +215,8 @@ public class StandardGame extends BasicGameState {
 		}
 		SoundStore.get().poll(0);
 		// spawn enemy
-		if ((EnemyCoolDown != 0 && p.tick % (EnemyCoolDown) == 0)
-				|| e.isEmpty() && MaxEnemies > e.size()) {
+		if (((EnemyCoolDown != 0 && p.tick % (EnemyCoolDown) == 0)
+				|| e.isEmpty() )&& MaxEnemies > e.size()) {
 			e.add(new Asteroid(-1, -1, p));
 			if (EnemyCoolDown >= 100) {
 				EnemyCoolDown--;

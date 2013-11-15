@@ -107,7 +107,7 @@ public class PauseMenu extends StandardGame {
 			throws SlickException {
 		MainGame g = (MainGame) sbg;
 		Input in = gc.getInput();
-		if (in.isKeyPressed(Input.KEY_R)) {
+		if (in.isKeyDown(Input.KEY_R)) {
 			sbg.initStatesList(gc);
 		}
 		g.GetUniversalOptions(in, gc);
