@@ -1,0 +1,10 @@
+3,200,200,15
+false,false
+false,false
+false,false
+Asteroid,false,1
+HealthUp,0.5,InfiniteShot,0.05,RandomUp,0.2,ShrinkUp,0.25
+true
+1
+1
+1

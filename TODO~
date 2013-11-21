@@ -1,0 +1,42 @@
+TODO:
+*add more Levels
+	*a congradulatory level for completing all current levels (currently it just crashes)
+	*level 10 will be a boss battle using Bosteroid
+*Enemies
+	*Bosteroid
+		*lots of bug fixing, Optimization and balancing
+		*stage 2: starts after player has blasted to core
+		 all but the core (currently just graphical, needs adding boundbox) bosteroid has greatly increased speed and sends
+		 asteroids at player.
+		*stage 3: Replace entity with place holder item, which when collected completes level, visually represents collecting shotgun
+	*Line based enemy
+		*will come in many varients, should have an associated superclass
+		*will move slowly creating lines that slowly trap the player
+		*can be killed similar to snake (making it collide with itself)
+		*can also be destroyed by guns
+	*UFO
+		*does not directly deal damage
+		*uses repulser or tractor beam to push/pull player into other enemies
+	*turret
+		*motionless high health enemy that shoots bullets at player
+		*Several varients including
+			*just shoots one type of bullet
+			*Shoots the type selected by the player
+			*teleports and shoots
+*UI
+	*improve visuals
+		*health bar better colours
+		*Start menu buttons will have gamplay images over them
+*Interface
+	*Add functionality to Options and Story
+	*Level select for story line
+		*eventually this needs to require unlocking
+	*Level System
+		*Initial enemy spawns and start Locations
+		*Bonus points for completing certain objectives over others
+		*Message that appears at start of each level
+	*Highscore and persistant options
+*Engine
+	*Gamestate system needs major refactoring, it's a mess
+
+		
