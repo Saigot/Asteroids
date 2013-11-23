@@ -17,10 +17,7 @@ import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import pewpew.entities.Asteroid;
-import pewpew.entities.Entity;
-import pewpew.entities.Player;
-import pewpew.entities.PowerUps;
+import pewpew.entities.*;
 import pewpew.entities.powerups.HealthUp;
 import pewpew.entities.powerups.InfiniteShot;
 import pewpew.entities.powerups.RandomUp;
@@ -34,6 +31,7 @@ public class StandardGame extends BasicGameState {
 	Player p;
 	ArrayList<Entity> e;
 	ArrayList<PowerUps> pow;
+	int tick;
 	int MaxPowerups = 0;
 	int PowerUpCoolDown = 00;
 	int EnemyCoolDown = 00;
@@ -73,7 +71,7 @@ public class StandardGame extends BasicGameState {
 			p.score += 50000;
 		}
 		// e.add(new Bosteroid(p));
-		e.add(new Asteroid(-1, -1, p));
+		//e.add(new Asteroid(-1, -1, p));
 	}
 
 	public void getMotion(Input in, GameContainer gc, StateBasedGame sbg,
@@ -146,6 +144,7 @@ public class StandardGame extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
+                tick++;
 		// cull powerups
 		for (int i = 0; i <= pow.size() - 1; i++) {
 			if (pow.get(i).cull()) {
@@ -217,8 +216,20 @@ public class StandardGame extends BasicGameState {
 		// spawn enemy
 		if (((EnemyCoolDown != 0 && p.tick % (EnemyCoolDown) == 0)
 				|| e.isEmpty() )&& MaxEnemies > e.size()) {
-			e.add(new Asteroid(-1, -1, p));
-			if (EnemyCoolDown >= 100) {
+			double rand = Math.random();
+                        boolean spawn = false;
+                        Asteroid a = new Asteroid(0,0,null);
+                        Bosteroid b = new Bosteroid(null);
+                        if(rand < b.GetSpawnProb()){
+                            e.add(new Bosteroid(p));
+                            spawn = true;
+                        }else if(rand < a.GetSpawnProb()){
+                            e.add(new Asteroid(-1, -1, p));
+                            spawn = true;
+                        }
+                        
+			
+                        if (EnemyCoolDown >= 100) {
 				EnemyCoolDown--;
 			}
 		}
@@ -258,6 +269,9 @@ public class StandardGame extends BasicGameState {
 		NumberFormat formatter = new DecimalFormat("00000000");
 		String scr = formatter.format(p.score);
 		g.drawString(scr, 25, gc.getHeight() - (25 * Conditions));
+                String Time = "Time: " + Integer.toString(tick/60);
+                Conditions++;
+                g.drawString(Time, 25, gc.getHeight() - (25 * Conditions));
 	}
 
 	public void nextWeapon() {

@@ -46,7 +46,6 @@ public class LevelGame extends StandardGame {
 	boolean TimeSecondary = true;
 	boolean TimePrimary = false;
 	int TimeLimit;
-	int tick;
 
 	public LevelGame(int startLevel) {
 		level = startLevel - 1;
@@ -62,7 +61,6 @@ public class LevelGame extends StandardGame {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		tick++;
 		for (int i = 0; i <= e.size() - 1; i++) {
 			if (e.get(i).getSuperType().equals("Enemy")) {
 				pewpew.entities.Enemy en = (pewpew.entities.Enemy) e.get(i);
@@ -93,6 +91,7 @@ public class LevelGame extends StandardGame {
 	public void renderWinConditions(GameContainer gc, StateBasedGame sbg,
 			Graphics g) {
 		int Conditions = 1;
+                g.setColor(Color.white);
 		if (EnemyPrimary || EnemySecondary) {
 			if (EnemiesMet()) {
 				g.setColor(Color.green);
@@ -114,7 +113,11 @@ public class LevelGame extends StandardGame {
 					+ Integer.toString(TimeLimit/60);
 			g.drawString(Time, 25, gc.getHeight() - (25 * Conditions));
 			++Conditions;
-		}
+		}else{
+                    String Time = "Time: " + Integer.toString(tick/60);
+                    Conditions++;
+                    g.drawString(Time, 25, gc.getHeight() - (25 * Conditions));
+                }
 		if (PtsPrimary || PtsSecondary) {
 			if (PointsMet()) {
 				g.setColor(Color.green);
@@ -130,6 +133,7 @@ public class LevelGame extends StandardGame {
 			g.setColor(Color.white);
 			NumberFormat formatter = new DecimalFormat("00000000");
 			String scr = formatter.format(p.score);
+                        Conditions++;
 			g.drawString(scr, 25, gc.getHeight() - (25 * Conditions));
 		}
 
@@ -178,7 +182,7 @@ public class LevelGame extends StandardGame {
 	}
 
 	public boolean RequiredMet() {
-		return (TimeMet() || !TimePrimary) && (EnemiesMet() || !EnemyPrimary)
+		return (EnemiesMet() || !EnemyPrimary)
 				&& (PointsMet() || !PtsPrimary)
 				&& !(!EnemyPrimary && !EnemyPrimary && !PtsPrimary);
 	}

@@ -57,7 +57,17 @@ public class Bosteroid extends Asteroid {
     public String getType() {
         return "Bosteroid";
     }
-
+    
+    @Override
+    public double GetSpawnProb() {
+        return 1.0; //always spawns
+    }
+    
+    @Override
+    public void SetSpawnProb(double SP){
+        return; //always spawns, ignores thsi
+    }
+            
     @Override
     public void move(Entity e) {
         // do Child collision and movement then return

@@ -444,7 +444,7 @@ public class Player implements Entity {
     @Override
     public float doDamage() {
         score += 10;
-        return (int) 50f;
+        return (int) (float)(50 * Bullet.dmgDealMult);
     }
 
     @Override
