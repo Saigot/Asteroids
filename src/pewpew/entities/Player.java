@@ -395,7 +395,16 @@ public class Player implements Entity {
             }
         }
     } // IN RADIANS
-
+    
+    public void Bounce(float exv, float eyv){
+        xv = -(xv+exv)/2;
+        yv = -(yv+eyv)/2;
+        
+        if(Math.sqrt(xv*xv + yv*yv) < 2){
+            xv *= 5;
+            yv *= 5;
+        }
+    }
     @Override
     public void render(GameContainer gc, Graphics g) {
         if (health < 0) {

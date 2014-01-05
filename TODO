@@ -1,6 +1,5 @@
 TODO:
 *add more Levels
-	*a congradulatory level for completing all current levels (currently it just crashes)
 	*level 10 will be a boss battle using Bosteroid
 *Enemies
 	*Bosteroid
@@ -35,6 +34,7 @@ TODO:
 		*Initial enemy spawns and start Locations
 		*Bonus points for completing certain objectives over others
 		*Message that appears at start of each level
+		*Allow levels to end immediately on goal completion or not
 	*Highscore and persistant options
 *Engine
 	*Gamestate system needs major refactoring, it's a mess
