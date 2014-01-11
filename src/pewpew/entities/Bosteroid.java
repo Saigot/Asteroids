@@ -19,6 +19,7 @@ import pewpew.Util;
  */
 public class Bosteroid extends Asteroid {
     static int SIZE;
+    static boolean spawn = false;
     int stage;
     Player player;
     int shotTick = 0;
@@ -38,9 +39,6 @@ public class Bosteroid extends Asteroid {
         C = Color.red;
         Bosteroid.SIZE = 600;
         stage = 0;
-        x = Entity.FORM_WIDTH/2;
-        y = 80;
-        TOP_SPEED = 0f;
         shape.setCenterX(x);
         shape.setCenterY(y);
         startRad = MaxRadius();
@@ -54,7 +52,7 @@ public class Bosteroid extends Asteroid {
         float centery = shape.getMinY() + (shape.getHeight() / 2);
         g.setColor(C);
         //g.drawString(Integer.toString(health), x - 50, y - 10);
-        g.draw(shape);
+        g.fill(shape);
         //float radius = 2*MaxRadius();
         //g.drawOval((x-radius/2),(y-radius/2), radius, radius);
 
@@ -78,12 +76,20 @@ public class Bosteroid extends Asteroid {
     
     @Override
     public double GetSpawnProb() {
-        return 1.0; //always spawns
+        if(spawn){
+            return 1;
+        }
+        return 0;
     }
     
     @Override
     public void SetSpawnProb(double SP){
-        return; //always spawns, ignores thsi
+       //always spawns or never spawns
+        if(SP > 0.5){
+            spawn = true;
+        }else{
+            spawn = false;
+        }
     }
             
     @Override
@@ -97,7 +103,7 @@ public class Bosteroid extends Asteroid {
         float deltax = x - player.x;
         float deltay = y - player.y;
         float speed = getSpeed();
-        if(Math.abs(speed) < 0.1 && Collsiontick<=0){
+        if(Math.abs(speed) < 0.1 && Collsiontick/50<=1){
             float theta = (float) (Math.atan(deltay / deltax) + Math.PI);
             xv = (float) ((TOP_SPEED * Math.cos(theta)));
             yv = (float) ((TOP_SPEED * Math.sin(theta)));
@@ -106,10 +112,6 @@ public class Bosteroid extends Asteroid {
                 yv = -yv;
             }
         }
-        
-
-        
-        
         
         xv = Util.doFrictionX(xv, yv, FRICTION);
         yv = Util.doFrictionY(xv, yv, FRICTION);

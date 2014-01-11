@@ -9,11 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**

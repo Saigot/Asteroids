@@ -30,6 +30,10 @@ public class Player implements Entity {
     // <editor-fold defaultstate="collapsed" desc="Variables">
     public float x = Entity.FORM_WIDTH / 2;
     public float y = Entity.FORM_HEIGHT / 2;
+    
+    int BounceTick;
+    int BounceCool = 20;
+    
     public float xv;
     public float yv;
     public float xa;
@@ -273,6 +277,10 @@ public class Player implements Entity {
         if (health < 0) {
             return;
         }
+        
+        if(BounceTick >= 0){
+            BounceTick--;
+        }
         // things done every tick
         // score+=1;
         if (damagetick > 0) {
@@ -329,6 +337,9 @@ public class Player implements Entity {
     }
 
     public void Forward(float up, float dn, int delta, Entity e) {
+        if(BounceTick >= 0){
+            return;
+        }
         isForward = true;
         xa = up;
         ya = dn;
@@ -347,6 +358,10 @@ public class Player implements Entity {
     }
 
     public void Reverse(float up, float dn, int delta, Entity e) {
+        if(BounceTick >= 0){
+            return;
+        }
+        
         isReverse = true;
         xa = -up;
         ya = -dn;
@@ -404,6 +419,7 @@ public class Player implements Entity {
             xv *= 5;
             yv *= 5;
         }
+        BounceTick = BounceCool;
     }
     @Override
     public void render(GameContainer gc, Graphics g) {

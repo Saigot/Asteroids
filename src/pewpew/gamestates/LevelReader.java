@@ -33,7 +33,7 @@ public class LevelReader {
     public void read(int level, LevelGame g) throws IOException, SlickException {
         String line;
         String fileName;
-        level = 10;
+        level = 10; //debug
         if (level > LEVELCAP) {
             fileName = "Victory.lvl";
         } else {
